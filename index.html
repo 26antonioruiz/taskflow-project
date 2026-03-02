@@ -2,41 +2,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Juego de Tronos - Mini Juego</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <title>Consejo del Reino</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-        <h1>Juego de Tronos - Mini Juego</h1>
-        <p>Elige tu casa y enfrenta otras casas en batalla</p>
+        <h1>⚔ Consejo del Reino</h1>
+        <p>Gestión de misiones en Poniente</p>
     </header>
 
     <main>
-        <aside id="houses">
-            <h2>Elige tu Casa</h2>
-            <button onclick="chooseHouse('Stark')">Stark</button>
-            <button onclick="chooseHouse('Lannister')">Lannister</button>
-            <button onclick="chooseHouse('Targaryen')">Targaryen</button>
+
+        <aside class="sidebar">
+            <h2>Casas</h2>
+            <ul>
+                <li>🦁 Lannister</li>
+                <li>🐺 Stark</li>
+                <li>🐉 Targaryen</li>
+                <li>🌹 Tyrell</li>
+            </ul>
         </aside>
 
-        <section id="characters">
-            <h2>Personajes</h2>
-            <div id="house-logo"></div>
-            <div id="character-info">
-                <p>Selecciona una casa para ver sus personajes</p>
+        <section class="tasks">
+            <h2>Misiones Activas</h2>
+
+            <div class="task-card high">
+                <div class="task-info">
+                    <h3>Defender el Muro</h3>
+                    <span class="category">Guardia de la Noche</span>
+                </div>
+                <span class="badge">Alta</span>
             </div>
+
+            <div class="task-card medium">
+                <div class="task-info">
+                    <h3>Reunión del Consejo</h3>
+                    <span class="category">Desembarco del Rey</span>
+                </div>
+                <span class="badge">Media</span>
+            </div>
+
+            <div class="task-card low">
+                <div class="task-info">
+                    <h3>Entrenar dragones</h3>
+                    <span class="category">Rocadragón</span>
+                </div>
+                <span class="badge">Baja</span>
+            </div>
+
         </section>
 
-        <section id="battle">
-            <h2>Batalla</h2>
-            <button onclick="startBattle()">Iniciar Batalla</button>
-            <div id="battle-result"></div>
-        </section>
     </main>
 
-    <div id="effects"></div>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
