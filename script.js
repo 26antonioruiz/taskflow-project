@@ -2,16 +2,19 @@ let playerHouse = null;
 
 const houses = {
     "Stark": {
-        characters: ["Eddard Stark", "Arya Stark", "Jon Snow"],
-        power: 80
+        characters: ["Eddard", "Arya", "Jon"],
+        power: 80,
+        image: "stark.png"
     },
     "Lannister": {
-        characters: ["Tywin Lannister", "Cersei Lannister", "Tyrion Lannister"],
-        power: 85
+        characters: ["Tywin", "Cersei", "Tyrion"],
+        power: 85,
+        image: "lannister.png"
     },
     "Targaryen": {
-        characters: ["Daenerys Targaryen", "Viserys Targaryen", "Rhaegar Targaryen"],
-        power: 90
+        characters: ["Daenerys", "Viserys", "Rhaegar"],
+        power: 90,
+        image: "targaryen.png"
     }
 };
 
@@ -19,15 +22,14 @@ function chooseHouse(house) {
     playerHouse = house;
     const infoDiv = document.getElementById('character-info');
     infoDiv.innerHTML = `<h3>${house}</h3>`;
-    const ul = document.createElement('ul');
-
+    
     houses[house].characters.forEach(character => {
-        const li = document.createElement('li');
-        li.textContent = character;
-        ul.appendChild(li);
+        const div = document.createElement('div');
+        div.classList.add('character-card');
+        div.innerHTML = `<img src="images/${houses[house].image}" alt="${character}"><p>${character}</p>`;
+        infoDiv.appendChild(div);
     });
 
-    infoDiv.appendChild(ul);
     document.getElementById('battle-result').innerHTML = "";
 }
 
