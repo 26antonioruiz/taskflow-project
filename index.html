@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Game of Thrones App - Proyecto ÉPICO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>🐉 Game of Thrones</h1>
+</header>
+
+<div class="overlay"></div>
+
+<div class="layout">
+
+  <aside>
+    <h2>Casas</h2>
+    <ul>
+      <li class="stark">🐺 Stark</li>
+      <li class="lannister">🦁 Lannister</li>
+      <li class="targaryen">🐉 Targaryen</li>
+    </ul>
+
+    <button id="throne-btn">👑 Sentarse en el Trono</button>
+  </aside>
+
+  <main>
+    <section class="characters">
+
+      <article class="card stark-card">
+        <div>
+          <h3>Jon Snow</h3>
+          <p>Casa Stark</p>
+        </div>
+        <span class="badge stark">Norte</span>
+        <div class="snow"></div>
+      </article>
+
+      <article class="card lannister-card">
+        <div>
+          <h3>Cersei Lannister</h3>
+          <p>Casa Lannister</p>
+        </div>
+        <span class="badge lannister">Roca Casterly</span>
+        <div class="gold-glow"></div>
+      </article>
+
+      <article class="card targaryen-card">
+        <div>
+          <h3>Daenerys Targaryen</h3>
+          <p>Casa Targaryen</p>
+        </div>
+        <span class="badge targaryen">Fuego y Sangre</span>
+        <div class="fire"></div>
+      </article>
+
+    </section>
+  </main>
+
+</div>
+
+<audio id="theme-music" src="https://assets.mixkit.co/music/preview/mixkit-epic-orchestral-trailer-218.mp3" loop></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
