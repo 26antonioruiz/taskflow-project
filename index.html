@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego de Tronos - Mini Juego</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Juego de Tronos - Batallas de Casas</h1>
+        <p>Elige tu casa y enfrenta otra en batalla</p>
+    </header>
+
+    <section id="houses">
+        <h2>Elige tu Casa</h2>
+        <button onclick="chooseHouse('Stark')">Casa Stark</button>
+        <button onclick="chooseHouse('Lannister')">Casa Lannister</button>
+        <button onclick="chooseHouse('Targaryen')">Casa Targaryen</button>
+    </section>
+
+    <section id="characters">
+        <h2>Personajes de tu Casa</h2>
+        <div id="character-info">
+            <p>Selecciona una casa para ver sus personajes</p>
+        </div>
+    </section>
+
+    <section id="battle">
+        <h2>Batalla</h2>
+        <button onclick="startBattle()">Iniciar Batalla</button>
+        <div id="battle-result"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
