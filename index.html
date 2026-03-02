@@ -3,213 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juego de Tronos - Experiencia Suprema</title>
-
+<title>Task Manager Juego de Tronos</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-* {margin:0;padding:0;box-sizing:border-box;}
-body {
-    font-family:'Cinzel',serif;
-    background:#0b0b0f;
-    color:white;
-    overflow-x:hidden;
+:root {
+    --stark:#7f8c8d;
+    --lannister:#c0392b;
+    --targaryen:#e67e22;
+    --background:#0b0b0f;
+    --sidebar-bg:#111;
+    --main-bg:#1a1a1a;
+    --text-color:#fff;
+    --badge-high:#e74c3c;
+    --badge-medium:#f1c40f;
+    --badge-low:#2ecc71;
+    --transition:0.3s;
 }
 
-/* HERO */
-.hero {
-    height:100vh;
-    background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070') center/cover no-repeat;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    position:relative;
-}
-.hero h1 {
-    font-size:4rem;
-    background:linear-gradient(to right,#d4af37,#fff);
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:fadeIn 2s ease;
-}
-.hero button {
-    margin-top:20px;
-    padding:15px 40px;
-    background:crimson;
-    border:none;
-    cursor:pointer;
-    font-size:1.1rem;
-    transition:0.3s;
-}
-.hero button:hover {transform:scale(1.1);background:darkred;}
+/* Reset */
+* { box-sizing:border-box; margin:0; padding:0; font-family:'Cinzel', serif; }
+body { display:flex; min-height:100vh; background:var(--background); color:var(--text-color); transition:background var(--transition); }
 
-/* NIEVE */
-.snowflake {
-    position:fixed;
-    top:-10px;
-    color:white;
-    font-size:1em;
-    animation:fall linear infinite;
+/* Sidebar */
+aside {
+    width:250px;
+    background:var(--sidebar-bg);
+    padding:20px;
+    transition:var(--transition);
 }
-@keyframes fall {
-    to {transform:translateY(110vh);}
-}
+aside h2 { margin-bottom:20px; }
+aside ul { list-style:none; }
+aside li { padding:10px; cursor:pointer; margin-bottom:10px; border-radius:5px; transition:var(--transition); }
+aside li:hover { background:#222; }
+aside li.active { font-weight:bold; border-left:4px solid gold; }
 
-/* CASAS */
-section {padding:80px 20px;text-align:center;}
-.cards {display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
-.card {
-    background:#111;
-    padding:30px;
-    border:2px solid gold;
-    cursor:pointer;
-    transition:0.3s;
-}
-.card:hover {transform:scale(1.1);background:#222;}
+/* Hamburger */
+#hamburger { display:none; cursor:pointer; margin-bottom:20px; }
+#hamburger div { width:30px; height:4px; background:white; margin:6px 0; transition:0.3s; }
 
-/* RESULTADO CASA */
-#house-result {
-    margin-top:30px;
-    font-size:1.5rem;
-}
+/* Main */
+.main-container { flex:1; padding:20px; background:var(--main-bg); transition:var(--transition); }
+h1 { margin-bottom:20px; }
 
-/* BATALLA */
-.battle {
-    background:#111;
-    padding:40px;
+/* Tasks */
+.task { 
+    background:#222; padding:15px; margin-bottom:15px; border-radius:8px; 
+    display:flex; justify-content:space-between; align-items:center; 
+    transition:background var(--transition), transform var(--transition); 
 }
-.health-bar {
-    width:300px;
-    height:20px;
-    background:#333;
-    margin:10px auto;
-}
-.health {
-    height:100%;
-    background:red;
-    width:100%;
-}
-.battle button {
-    padding:10px 20px;
-    margin-top:10px;
-    background:gold;
-    border:none;
-    cursor:pointer;
-}
+.task:hover { transform:scale(1.02); }
+.task.completed { background:#555; text-decoration:line-through; opacity:0.8; }
 
-/* FUEGO */
-.fire {
-    position:fixed;
-    bottom:0;
-    width:100%;
-    height:100px;
-    background:radial-gradient(circle at 50% 100%, orange, red, transparent);
-    animation:fireAnim 1s infinite alternate;
-}
-@keyframes fireAnim {
-    from {opacity:0.7;}
-    to {opacity:1;}
-}
+/* Badges */
+.badge { padding:5px 10px; border-radius:12px; font-size:0.8rem; font-weight:bold; color:#111; }
+.high { background:var(--badge-high); }
+.medium { background:var(--badge-medium); }
+.low { background:var(--badge-low); }
 
-/* MÚSICA BOTÓN */
-.music-btn {
-    position:fixed;
-    top:20px;
-    right:20px;
-    background:gold;
-    padding:10px;
-    cursor:pointer;
+/* Responsive */
+@media(max-width:768px){
+    body { flex-direction:column; }
+    aside { width:100%; display:none; }
+    #hamburger { display:block; }
 }
-
-@keyframes fadeIn {
-    from {opacity:0;transform:translateY(30px);}
-    to {opacity:1;transform:translateY(0);}
-}
-
 </style>
 </head>
 <body>
 
-<div class="music-btn" onclick="toggleMusic()">🎵 Música</div>
+<!-- Sidebar -->
+<aside id="sidebar">
+    <h2>Casas</h2>
+    <ul>
+        <li class="active" onclick="filterTasks('Stark')" style="border-left-color: var(--stark)">Stark</li>
+        <li onclick="filterTasks('Lannister')" style="border-left-color: var(--lannister)">Lannister</li>
+        <li onclick="filterTasks('Targaryen')" style="border-left-color: var(--targaryen)">Targaryen</li>
+    </ul>
+</aside>
 
-<!-- HERO -->
-<section class="hero">
-    <h1>El Invierno Ha Llegado</h1>
-    <button onclick="scrollToSection('houses')">Comenzar</button>
-</section>
+<!-- Hamburger -->
+<div id="hamburger" onclick="toggleSidebar()">
+    <div></div><div></div><div></div>
+</div>
 
-<!-- CASAS -->
-<section id="houses">
-    <h2>Elige Tu Casa</h2>
-    <div class="cards">
-        <div class="card" onclick="chooseHouse('Stark')">🐺 Casa Stark</div>
-        <div class="card" onclick="chooseHouse('Lannister')">🦁 Casa Lannister</div>
-        <div class="card" onclick="chooseHouse('Targaryen')">🔥 Casa Targaryen</div>
-    </div>
-    <div id="house-result"></div>
-</section>
-
-<!-- BATALLA -->
-<section class="battle">
-    <h2>⚔️ Batalla por el Trono</h2>
-    <p>Vida del enemigo:</p>
-    <div class="health-bar">
-        <div id="enemyHealth" class="health"></div>
-    </div>
-    <button onclick="attack()">Atacar</button>
-    <p id="battle-result"></p>
-</section>
-
-<div class="fire"></div>
-
-<audio id="bg-music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3e60c3f99b.mp3?filename=epic-cinematic-11309.mp3" type="audio/mpeg">
-</audio>
+<!-- Main -->
+<div class="main-container">
+    <h1>Misiones</h1>
+    <div id="tasks"></div>
+</div>
 
 <script>
+// Datos iniciales de tareas
+let tasksData = [
+    {house:'Stark', text:'Patrullar el Norte', priority:'high', completed:false},
+    {house:'Lannister', text:'Recoger impuestos en Desembarco del Rey', priority:'medium', completed:false},
+    {house:'Targaryen', text:'Entrenar dragones jóvenes', priority:'high', completed:false},
+    {house:'Stark', text:'Reparar muros de Winterfell', priority:'low', completed:false},
+    {house:'Lannister', text:'Organizar banquete real', priority:'medium', completed:false},
+];
 
-/* SCROLL */
-function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({behavior:"smooth"});
+// Guardar / cargar localStorage
+if(localStorage.getItem('tasks')) tasksData = JSON.parse(localStorage.getItem('tasks'));
+
+function saveTasks(){ localStorage.setItem('tasks', JSON.stringify(tasksData)); }
+
+// Renderizado de tareas
+function renderTasks(filterHouse='Stark'){
+    const container = document.getElementById('tasks');
+    container.innerHTML='';
+    tasksData.forEach((task,index)=>{
+        if(task.house===filterHouse){
+            const section = document.createElement('section');
+            section.className='task';
+            if(task.completed) section.classList.add('completed');
+            section.dataset.index=index;
+            section.innerHTML=`<span>${task.text}</span><span class="badge ${task.priority}">${task.priority.toUpperCase()}</span>`;
+            section.draggable=true;
+            section.addEventListener('click', ()=>toggleComplete(index));
+            section.addEventListener('dragstart', dragStart);
+            section.addEventListener('dragover', dragOver);
+            section.addEventListener('drop', drop);
+            container.appendChild(section);
+        }
+    });
 }
 
-/* NIEVE */
-for(let i=0;i<50;i++){
-    let snow=document.createElement("div");
-    snow.classList.add("snowflake");
-    snow.innerText="❄";
-    snow.style.left=Math.random()*100+"vw";
-    snow.style.animationDuration=(Math.random()*5+5)+"s";
-    document.body.appendChild(snow);
+// Toggle completado
+function toggleComplete(i){ tasksData[i].completed=!tasksData[i].completed; saveTasks(); renderTasks(currentHouse); }
+
+// Filtrar
+let currentHouse='Stark';
+function filterTasks(house){ currentHouse=house; renderTasks(house); 
+    document.querySelectorAll('aside li').forEach(i=>i.classList.remove('active'));
+    event.target.classList.add('active');
 }
 
-/* MÚSICA */
-let music=document.getElementById("bg-music");
-function toggleMusic(){
-    if(music.paused) music.play();
-    else music.pause();
+// Drag & Drop
+let draggedIndex=null;
+function dragStart(e){ draggedIndex=e.target.dataset.index; }
+function dragOver(e){ e.preventDefault(); }
+function drop(e){ 
+    e.preventDefault();
+    const targetIndex = e.target.closest('.task').dataset.index;
+    const temp = tasksData[draggedIndex];
+    tasksData.splice(draggedIndex,1);
+    tasksData.splice(targetIndex,0,temp);
+    saveTasks();
+    renderTasks(currentHouse);
 }
 
-/* ELECCIÓN CASA */
-function chooseHouse(house){
-    let result=document.getElementById("house-result");
-    result.innerHTML="Has elegido la Casa "+house+" 🏰<br>Tu destino cambiará el curso de los Siete Reinos.";
+// Toggle sidebar mobile
+function toggleSidebar(){
+    const sidebar=document.getElementById('sidebar');
+    if(sidebar.style.display==='block') sidebar.style.display='none';
+    else sidebar.style.display='block';
 }
 
-/* BATALLA */
-let enemyHP=100;
-function attack(){
-    let damage=Math.floor(Math.random()*20)+5;
-    enemyHP-=damage;
-    if(enemyHP<0) enemyHP=0;
-    document.getElementById("enemyHealth").style.width=enemyHP+"%";
-    if(enemyHP===0){
-        document.getElementById("battle-result").innerText="🔥 ¡Has conquistado el Trono de Hierro!";
-    }
-}
-
+// Inicial render
+renderTasks(currentHouse);
 </script>
 
 </body>
