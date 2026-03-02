@@ -5,104 +5,105 @@ const membersSummary = document.getElementById('members-summary');
 
 const houseData = {
     Stark: {
-        summary: "La Casa Stark es la noble familia del Norte, conocida por su honor, justicia y su lema 'Se acerca el Invierno'. Su sede es Winterfell. Los Stark han defendido el Norte durante siglos y son famosos por su resiliencia y lealtad.",
+        summary: "La Casa Stark es la noble familia del Norte, conocida por su honor, justicia y su lema 'Se acerca el Invierno'. Su sede es Winterfell.",
         members: {
-            "Eddard Stark": "Señor de Winterfell, famoso por su honor y liderazgo.",
-            "Catelyn Stark": "Esposa de Eddard, madre protectora.",
-            "Robb Stark": "Hijo mayor, Rey en el Norte.",
-            "Sansa Stark": "Hija mayor, inteligente y diplomática.",
-            "Arya Stark": "Hija menor, hábil guerrera.",
-            "Jon Snow": "Hijo bastardo, líder en la lucha contra los Caminantes Blancos."
+            "Eddard Stark": "Señor de Winterfell, famoso por su honor.",
+            "Catelyn Stark": "Madre protectora.",
+            "Robb Stark": "Rey en el Norte.",
+            "Sansa Stark": "Hija diplomática.",
+            "Arya Stark": "Hija guerrera.",
+            "Jon Snow": "Líder contra los Caminantes Blancos."
         }
     },
     Lannister: {
-        summary: "La Casa Lannister, poderosa familia del Oeste, es conocida por su riqueza y su lema 'Oye mi rugido'. Su sede es Roca Casterly.",
+        summary: "Casa Lannister del Oeste, conocida por su riqueza y lema 'Oye mi rugido'.",
         members: {
-            "Tywin Lannister": "Patriarca y estratega político.",
-            "Cersei Lannister": "Reina de los Siete Reinos.",
-            "Jaime Lannister": "Guerrero hábil y hermano de Cersei.",
-            "Tyrion Lannister": "Intelectual y diplomático.",
-            "Joffrey Baratheon": "Rey joven, cruel y arrogante."
+            "Tywin": "Patriarca y estratega.",
+            "Cersei": "Reina de los Siete Reinos.",
+            "Jaime": "Guerrero hábil.",
+            "Tyrion": "Intelectual.",
+            "Joffrey": "Rey cruel."
         }
     },
     Targaryen: {
-        summary: "La Casa Targaryen gobernó los Siete Reinos con dragones y su lema es 'Fuego y Sangre'.",
+        summary: "Casa Targaryen gobernó con dragones, lema 'Fuego y Sangre'.",
         members: {
-            "Aegon I": "El Conquistador que unificó los Siete Reinos.",
-            "Daenerys Targaryen": "Madre de dragones.",
-            "Viserys Targaryen": "Hermano ambicioso."
+            "Aegon I": "El Conquistador.",
+            "Daenerys": "Madre de dragones.",
+            "Viserys": "Hermano ambicioso."
         }
     },
     Baratheon: {
-        summary: "La Casa Baratheon gobierna desde Bastión de Tormentas y Desembarco del Rey. Su lema es 'Nuestra es la Furia'.",
+        summary: "Casa Baratheon de Bastión de Tormentas y Desembarco del Rey, lema 'Nuestra es la Furia'.",
         members: {
-            "Robert Baratheon": "Rey de los Siete Reinos.",
-            "Stannis Baratheon": "Hermano de Robert, riguroso.",
-            "Renly Baratheon": "Hermano menor, carismático."
+            "Robert": "Rey de los Siete Reinos.",
+            "Stannis": "Hermano de Robert.",
+            "Renly": "Hermano menor."
         }
     },
     Greyjoy: {
-        summary: "La Casa Greyjoy gobierna las Islas del Hierro, su lema es 'Nosotros no sembramos'.",
+        summary: "Casa Greyjoy de las Islas del Hierro, lema 'Nosotros no sembramos'.",
         members: {
-            "Balon Greyjoy": "Señor de las Islas del Hierro.",
-            "Yara Greyjoy": "Hija valiente.",
-            "Theon Greyjoy": "Secuestrado, busca redención."
+            "Balon": "Señor de las Islas del Hierro.",
+            "Yara": "Hija valiente.",
+            "Theon": "Busca redención."
         }
     },
     Tyrell: {
-        summary: "La Casa Tyrell, con sede en Altojardín, es rica y diplomática. Su lema es 'Crecer fuerte'.",
+        summary: "Casa Tyrell de Altojardín, rica y diplomática, lema 'Crecer fuerte'.",
         members: {
-            "Margaery Tyrell": "Astuta y carismática.",
-            "Olenna Tyrell": "La Reina de Espinas.",
-            "Loras Tyrell": "Hijo caballeroso."
+            "Margaery": "Astuta y carismática.",
+            "Olenna": "La Reina de Espinas.",
+            "Loras": "Hijo caballeroso."
         }
     },
     Martell: {
-        summary: "La Casa Martell gobierna Dorne, famosa por su cultura liberal. Su lema: 'Nunca doblegado, nunca roto'.",
+        summary: "Casa Martell de Dorne, lema 'Nunca doblegado, nunca roto'.",
         members: {
-            "Doran Martell": "Príncipe prudente.",
-            "Oberyn Martell": "El Víbora Roja.",
-            "Arianne Martell": "Hija ambiciosa."
+            "Doran": "Príncipe prudente.",
+            "Oberyn": "El Víbora Roja.",
+            "Arianne": "Hija ambiciosa."
         }
     },
     Arryn: {
-        summary: "La Casa Arryn gobierna el Valle desde el Nido de Águilas. Su lema es 'Tan alto como honor'.",
+        summary: "Casa Arryn del Valle, lema 'Tan alto como honor'.",
         members: {
             "Jon Arryn": "Guardián de los Siete Reinos.",
-            "Lysa Arryn": "Madre protectora.",
-            "Robin Arryn": "Hijo frágil heredero del Valle."
+            "Lysa": "Madre protectora.",
+            "Robin": "Hijo heredero."
         }
     },
     Tully: {
-        summary: "La Casa Tully gobierna Aguasdulces. Su lema es 'Familia, deber, honor'.",
+        summary: "Casa Tully de Aguasdulces, lema 'Familia, deber, honor'.",
         members: {
-            "Hoster Tully": "Patriarca rígido.",
-            "Catelyn Stark": "Hija protectora.",
-            "Edmure Tully": "Heredero noble pero inexperto."
+            "Hoster": "Patriarca rígido.",
+            "Catelyn": "Hija protectora.",
+            "Edmure": "Heredero inexperto."
         }
     },
     Bolton: {
-        summary: "La Casa Bolton, famosa por su crueldad. Su lema: 'Nosotros guardamos los secretos'.",
+        summary: "Casa Bolton, famosa por su crueldad, lema 'Nosotros guardamos los secretos'.",
         members: {
-            "Roose Bolton": "Señor cruel y calculador.",
-            "Ramsay Bolton": "Hijo sádico."
+            "Roose": "Señor cruel.",
+            "Ramsay": "Hijo sádico."
         }
     },
     Frey: {
-        summary: "La Casa Frey controla el Paso de los Gemelos y es famosa por la Boda Roja.",
+        summary: "Casa Frey del Paso de los Gemelos, famosa por la Boda Roja.",
         members: {
-            "Walder Frey": "Patriarca ambicioso y traicionero."
+            "Walder": "Patriarca ambicioso."
         }
     },
     Mormont: {
-        summary: "La Casa Mormont es del Norte, leal a los Stark. Su lema: 'Aquí estamos'. Sede: Isla del Oso.",
+        summary: "Casa Mormont del Norte, leal a los Stark. Lema: 'Aquí estamos'.",
         members: {
-            "Jeor Mormont": "Lord Comandante de la Guardia de la Noche.",
-            "Lyanna Mormont": "Joven y valiente líder."
+            "Jeor": "Lord Comandante de la Guardia de la Noche.",
+            "Lyanna": "Joven y valiente líder."
         }
     }
 };
 
+// Interacción sidebar
 houseItems.forEach(item => {
     item.addEventListener('click', () => {
         houseItems.forEach(i => i.classList.remove('active'));
@@ -113,36 +114,23 @@ houseItems.forEach(item => {
 
         // Filtrar tareas
         tasks.forEach(task => {
-            if(task.dataset.house === house) {
-                task.style.display = 'flex';
-                setTimeout(()=> task.style.opacity='1',50);
-            } else {
-                task.style.opacity='0';
-                setTimeout(()=> task.style.display='none',300);
-            }
+            if(task.dataset.house === house) task.style.display = 'flex';
+            else task.style.display = 'none';
         });
 
-        // Mostrar resumen de casa
-        summaryText.style.opacity = 0;
-        membersSummary.style.opacity = 0;
-        setTimeout(() => {
-            summaryText.textContent = houseInfo.summary;
-
-            membersSummary.innerHTML = '';
-            for(const [name, desc] of Object.entries(houseInfo.members)) {
-                const div = document.createElement('div');
-                div.className = 'member';
-                div.innerHTML = `<strong>${name}:</strong> ${desc}`;
-                membersSummary.appendChild(div);
-            }
-
-            summaryText.style.opacity = 1;
-            membersSummary.style.opacity = 1;
-        }, 300);
+        // Mostrar resumen de casa y miembros
+        summaryText.textContent = houseInfo.summary;
+        membersSummary.innerHTML = '';
+        for(const [name, desc] of Object.entries(houseInfo.members)) {
+            const div = document.createElement('div');
+            div.className = 'member';
+            div.innerHTML = `<strong>${name}:</strong> ${desc}`;
+            membersSummary.appendChild(div);
+        }
     });
 });
 
-// Completar tareas
+// Marcar tareas como completadas
 tasks.forEach(task => {
     task.addEventListener('click', () => {
         task.classList.toggle('completed');

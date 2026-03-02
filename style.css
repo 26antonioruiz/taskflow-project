@@ -9,7 +9,7 @@
     --font-family: 'Cinzel', serif;
     --transition: 0.3s;
 
-    /* Colores temáticos por casa */
+    /* Colores por casa */
     --stark: #7f8c8d;
     --lannister: #c0392b;
     --targaryen: #e67e22;
@@ -25,59 +25,38 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { display: flex; min-height: 100vh; font-family: var(--font-family); background: var(--background); color: var(--text-color); }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    font-family: var(--font-family);
-    background: var(--background);
-    color: var(--text-color);
-}
-
-/* Sidebar */
 aside {
-    width: 250px;
-    background: var(--sidebar-bg);
-    padding: 20px;
-    transition: var(--transition);
+    width: 250px; background: var(--sidebar-bg); padding: 20px; transition: var(--transition);
 }
 aside h2 { margin-bottom: 20px; }
 aside ul { list-style: none; }
 aside li {
-    padding: 10px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: var(--transition);
+    padding: 10px; cursor: pointer; margin-bottom: 10px; border-radius: 5px; transition: var(--transition);
 }
 aside li.active { font-weight: bold; border-left: 4px solid gold; }
 aside li:hover { background: #222; }
 
-/* Header */
-header { width: 100%; padding: 20px; background: #34495e; }
+header { width: 100%; padding: 20px; background: #34495e; text-align:center; }
 
-/* Main */
 main { flex: 1; padding: 20px; background: var(--main-bg); display: flex; flex-direction: column; gap: 15px; }
 
-/* Resumen de la casa */
 #house-summary { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 15px; transition: opacity var(--transition); }
 #house-summary h2 { margin-bottom: 10px; }
 #members-summary { margin-top: 10px; border-left: 4px solid gold; padding-left: 10px; transition: opacity var(--transition); }
 .member { margin-bottom: 8px; }
 .member strong { color: #f1c40f; }
 
-/* Tareas */
 .task { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 15px; border-radius: 8px; transition: background var(--transition), transform var(--transition); }
 .task:hover { transform: translateY(-2px); background: #333; }
 .task.completed { background: #555; text-decoration: line-through; opacity: 0.8; }
 
-/* Badges */
 .badge { padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: #111; }
 .high { background: var(--badge-high); }
 .medium { background: var(--badge-medium); }
 .low { background: var(--badge-low); }
 
-/* Responsive */
 @media(max-width: 768px) {
     body { flex-direction: column; }
     aside { width: 100%; }
