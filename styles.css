@@ -1,5 +1,3 @@
-/* Fuentes y fondo */
-/* Fuentes y fondo */
 body {
     font-family: 'MedievalSharp', cursive;
     background-image: url('../images/fondo-castillo.jpg');
@@ -9,16 +7,6 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
-    z-index: -1;
 }
 
 header {
@@ -26,7 +14,6 @@ header {
     padding: 20px;
 }
 
-/* Botones */
 button {
     padding: 12px 25px;
     margin: 10px;
@@ -45,7 +32,6 @@ button:hover {
     color: #1b1b1b;
 }
 
-/* Tarjetas de personajes */
 .character-card {
     display: inline-block;
     background-color: rgba(255, 255, 255, 0.1);
@@ -69,20 +55,17 @@ button:hover {
     transform: translateY(-5px);
 }
 
-/* Resultados de batalla */
 #battle-result {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
 }
 
-/* Imagen de casa */
 #house-logo img {
     width: 150px;
     margin-bottom: 10px;
 }
 
-/* Efectos */
 .fire {
     width: 50px;
     height: 50px;

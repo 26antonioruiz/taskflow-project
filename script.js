@@ -32,10 +32,8 @@ function chooseHouse(house) {
     const infoDiv = document.getElementById('character-info');
     const logoDiv = document.getElementById('house-logo');
 
-    // Muestra la imagen de la casa
     logoDiv.innerHTML = `<img src="images/${house.toLowerCase()}-house.png" alt="${house}">`;
 
-    // Muestra los personajes
     infoDiv.innerHTML = `<h3>${house}</h3>`;
     houses[house].characters.forEach(character => {
         const div = document.createElement('div');
@@ -47,7 +45,6 @@ function chooseHouse(house) {
     document.getElementById('battle-result').innerHTML = "";
 }
 
-// Función para animaciones de efectos
 function createEffect(type, x, y) {
     const effectsDiv = document.getElementById('effects');
     const effect = document.createElement('div');
@@ -74,7 +71,6 @@ function startBattle() {
     resultText += `Poder de tu casa: ${playerPower}<br>`;
     resultText += `Poder enemigo: ${enemyPower}<br>`;
 
-    // Efectos según la casa
     if (playerHouse === "Targaryen") {
         createEffect('fire', Math.random()*window.innerWidth, Math.random()*300);
     } else if (playerHouse === "Stark") {
@@ -91,3 +87,7 @@ function startBattle() {
 
     document.getElementById('battle-result').innerHTML = resultText;
 }
+
+// Hacer las funciones accesibles globalmente
+window.chooseHouse = chooseHouse;
+window.startBattle = startBattle;
