@@ -33,12 +33,12 @@ function chooseHouse(house) {
     const logoDiv = document.getElementById('house-logo');
 
     logoDiv.innerHTML = `<img src="images/${house.toLowerCase()}-house.png" alt="${house}">`;
-
     infoDiv.innerHTML = `<h3>${house}</h3>`;
-    houses[house].characters.forEach(character => {
+
+    houses[house].characters.forEach(char => {
         const div = document.createElement('div');
         div.classList.add('character-card');
-        div.innerHTML = `<img src="images/${character.image}" alt="${character.name}"><p>${character.name}</p>`;
+        div.innerHTML = `<img src="images/${char.image}" alt="${char.name}"><p>${char.name}</p>`;
         infoDiv.appendChild(div);
     });
 
@@ -61,33 +61,24 @@ function startBattle() {
         return;
     }
 
-    const houseNames = Object.keys(houses).filter(h => h !== playerHouse);
-    const enemyHouse = houseNames[Math.floor(Math.random() * houseNames.length)];
+    const enemyHouse = Object.keys(houses).filter(h => h !== playerHouse)[Math.floor(Math.random()*2)];
+    const playerPower = houses[playerHouse].power + Math.floor(Math.random()*20);
+    const enemyPower = houses[enemyHouse].power + Math.floor(Math.random()*20);
 
-    const playerPower = houses[playerHouse].power + Math.floor(Math.random() * 20);
-    const enemyPower = houses[enemyHouse].power + Math.floor(Math.random() * 20);
+    let result = `Tu casa ${playerHouse} pelea contra ${enemyHouse}.<br>`;
+    result += `Poder de tu casa: ${playerPower}<br>`;
+    result += `Poder enemigo: ${enemyPower}<br>`;
 
-    let resultText = `Tu casa ${playerHouse} pelea contra ${enemyHouse}.<br>`;
-    resultText += `Poder de tu casa: ${playerPower}<br>`;
-    resultText += `Poder enemigo: ${enemyPower}<br>`;
+    if (playerHouse === "Targaryen") createEffect('fire', Math.random()*window.innerWidth, Math.random()*300);
+    if (playerHouse === "Stark") createEffect('snowflake', Math.random()*window.innerWidth, -10);
 
-    if (playerHouse === "Targaryen") {
-        createEffect('fire', Math.random()*window.innerWidth, Math.random()*300);
-    } else if (playerHouse === "Stark") {
-        createEffect('snowflake', Math.random()*window.innerWidth, -10);
-    }
+    if (playerPower > enemyPower) result += "<strong>¡Has ganado la batalla!</strong>";
+    else if (playerPower < enemyPower) result += "<strong>¡Has perdido la batalla!</strong>";
+    else result += "<strong>¡Empate!</strong>";
 
-    if (playerPower > enemyPower) {
-        resultText += `<strong>¡Has ganado la batalla!</strong>`;
-    } else if (playerPower < enemyPower) {
-        resultText += `<strong>¡Has perdido la batalla!</strong>`;
-    } else {
-        resultText += `<strong>¡Empate!</strong>`;
-    }
-
-    document.getElementById('battle-result').innerHTML = resultText;
+    document.getElementById('battle-result').innerHTML = result;
 }
 
-// Hacer las funciones accesibles globalmente
+// Hacer accesibles las funciones a los botones
 window.chooseHouse = chooseHouse;
 window.startBattle = startBattle;
