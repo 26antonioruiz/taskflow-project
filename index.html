@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Task Manager Juego de Tronos</title>
+<title>Game of Tasks</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -13,20 +13,25 @@
 <aside id="sidebar">
     <h2>Casas</h2>
     <ul>
-        <li class="active" data-house="Stark">Stark</li>
-        <li data-house="Lannister">Lannister</li>
-        <li data-house="Targaryen">Targaryen</li>
+        <li class="active" data-house="Stark">Stark 🐺</li>
+        <li data-house="Lannister">Lannister 🦁</li>
+        <li data-house="Targaryen">Targaryen 🐉</li>
     </ul>
 </aside>
 
-<!-- Hamburger para móvil -->
+<!-- Hamburger móvil -->
 <div id="hamburger">
     <div></div><div></div><div></div>
 </div>
 
 <!-- Main -->
 <div class="main-container">
-    <h1>Misiones</h1>
+    <h1>Misiones de los Reinos</h1>
+    <div class="battle-bar">
+        <span>💀 Enemigo:</span>
+        <div id="battle-progress"><div id="battle-fill"></div></div>
+        <span id="battle-points">0 pts</span>
+    </div>
     <div id="tasks"></div>
 </div>
 

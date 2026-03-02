@@ -1,4 +1,4 @@
-// Datos iniciales de tareas
+// Datos iniciales
 let tasksData = [
     {house:'Stark', text:'Patrullar el Norte', priority:'high', completed:false},
     {house:'Lannister', text:'Recoger impuestos en Desembarco del Rey', priority:'medium', completed:false},
@@ -7,11 +7,15 @@ let tasksData = [
     {house:'Lannister', text:'Organizar banquete real', priority:'medium', completed:false},
 ];
 
-// Cargar desde localStorage
+// Guardado localStorage
 if(localStorage.getItem('tasks')) tasksData = JSON.parse(localStorage.getItem('tasks'));
+let battlePoints = localStorage.getItem('battlePoints') || 0;
 
-// Guardar
-function saveTasks(){ localStorage.setItem('tasks', JSON.stringify(tasksData)); }
+// Guardar función
+function saveTasks(){ 
+    localStorage.setItem('tasks', JSON.stringify(tasksData)); 
+    localStorage.setItem('battlePoints', battlePoints);
+}
 
 // Renderizar tareas
 let currentHouse = 'Stark';
@@ -27,21 +31,35 @@ function renderTasks(filterHouse=currentHouse){
             section.draggable=true;
             section.innerHTML=`<span>${task.text}</span><span class="badge ${task.priority}">${task.priority.toUpperCase()}</span>`;
             
-            // Completado al click
-            section.addEventListener('click',()=>toggleComplete(index));
-
-            // Drag & Drop
-            section.addEventListener('dragstart',dragStart);
-            section.addEventListener('dragover',dragOver);
-            section.addEventListener('drop',drop);
+            // Click para completar
+            section.addEventListener('click',()=>{
+                toggleComplete(index);
+            });
 
             container.appendChild(section);
         }
     });
+    updateBattleBar();
 }
 
 // Toggle completado
-function toggleComplete(i){ tasksData[i].completed=!tasksData[i].completed; saveTasks(); renderTasks(currentHouse); }
+function toggleComplete(i){
+    if(!tasksData[i].completed){
+        tasksData[i].completed=true;
+        battlePoints = parseInt(battlePoints)+10; // 10 pts por tarea
+        saveTasks();
+        renderTasks(currentHouse);
+    }
+}
+
+// Actualizar barra de batalla
+function updateBattleBar(){
+    const fill = document.getElementById('battle-fill');
+    const points = document.getElementById('battle-points');
+    let percent = Math.min((battlePoints/100)*100,100);
+    fill.style.width = percent+'%';
+    points.textContent = battlePoints+' pts';
+}
 
 // Filtrar por casa
 document.querySelectorAll('aside li').forEach(li=>{
@@ -52,20 +70,6 @@ document.querySelectorAll('aside li').forEach(li=>{
         li.classList.add('active');
     });
 });
-
-// Drag & Drop
-let draggedIndex=null;
-function dragStart(e){ draggedIndex=e.target.dataset.index; }
-function dragOver(e){ e.preventDefault(); }
-function drop(e){
-    e.preventDefault();
-    const targetIndex = e.target.closest('.task').dataset.index;
-    const temp = tasksData[draggedIndex];
-    tasksData.splice(draggedIndex,1);
-    tasksData.splice(targetIndex,0,temp);
-    saveTasks();
-    renderTasks(currentHouse);
-}
 
 // Hamburger móvil
 document.getElementById('hamburger').addEventListener('click',()=>{
