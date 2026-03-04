@@ -1,142 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consejo Real de Poniente</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<head>
+
+<meta charset="UTF-8">
+<title>Consejo Real de Poniente</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-  <header class="hero">
-    <div class="hero-inner">
-      <h1>Consejo Real de Poniente</h1>
-      <p>Panel estratégico del Trono de Hierro</p>
-    </div>
-  </header>
+<header>
 
-  <div class="app-layout">
+<h1>Consejo Real de Poniente</h1>
+<p>Panel estratégico del Trono de Hierro</p>
 
-    <aside class="sidebar">
-      <h2 class="sidebar-title">Grandes Casas</h2>
-      <nav>
-        <ul>
-          <li class="active" data-house="all">Todas</li>
-          <li data-house="stark">🐺 Stark</li>
-          <li data-house="lannister">🦁 Lannister</li>
-          <li data-house="targaryen">🐉 Targaryen</li>
-          <li data-house="baratheon">🦌 Baratheon</li>
-        </ul>
-      </nav>
-    </aside>
+</header>
 
-    <main class="main-content">
-      <section class="missions">
-        <header class="section-header">
-          <h2>Amenazas del Reino</h2>
-          <span class="status-pill" id="missions-count">11 activas</span>
-          <span class="status-pill" id="missions-completed">0 completadas</span>
-        </header>
 
-        <div class="mission-list">
+<div class="layout">
 
-          <!-- Misiones -->
-          <article class="mission-card high" data-house="stark">
-            <div class="mission-info">
-              <h3>Defender el Muro del Norte</h3>
-              <span class="meta">Casa Stark</span>
-            </div>
-            <span class="priority">Alta</span>
-          </article>
 
-          <article class="mission-card medium" data-house="lannister">
-            <div class="mission-info">
-              <h3>Blindar Desembarco del Rey</h3>
-              <span class="meta">Casa Lannister</span>
-            </div>
-            <span class="priority">Media</span>
-          </article>
+<!-- SIDEBAR IZQUIERDA -->
 
-          <article class="mission-card low" data-house="targaryen">
-            <div class="mission-info">
-              <h3>Entrenar dragones</h3>
-              <span class="meta">Casa Targaryen</span>
-            </div>
-            <span class="priority">Baja</span>
-          </article>
+<div class="sidebar-left">
 
-          <article class="mission-card medium" data-house="stark">
-            <div class="mission-info">
-              <h3>Reforzar Winterfell</h3>
-              <span class="meta">Casa Stark</span>
-            </div>
-            <span class="priority">Media</span>
-          </article>
+<h3>Grandes Casas</h3>
 
-          <article class="mission-card high" data-house="lannister">
-            <div class="mission-info">
-              <h3>Proteger oro de la corona</h3>
-              <span class="meta">Casa Lannister</span>
-            </div>
-            <span class="priority">Alta</span>
-          </article>
+<ul>
 
-          <article class="mission-card medium" data-house="baratheon">
-            <div class="mission-info">
-              <h3>Controlar tormentas y regiones</h3>
-              <span class="meta">Casa Baratheon</span>
-            </div>
-            <span class="priority">Media</span>
-          </article>
+<li class="active">Todas</li>
+<li>🐺 Stark</li>
+<li>🦁 Lannister</li>
+<li>🐉 Targaryen</li>
+<li>🦌 Baratheon</li>
 
-          <article class="mission-card low" data-house="targaryen">
-            <div class="mission-info">
-              <h3>Explorar Rocadragón</h3>
-              <span class="meta">Casa Targaryen</span>
-            </div>
-            <span class="priority">Baja</span>
-          </article>
+</ul>
 
-          <article class="mission-card high" data-house="stark">
-            <div class="mission-info">
-              <h3>Vigilar Caminantes Blancos</h3>
-              <span class="meta">Casa Stark</span>
-            </div>
-            <span class="priority">Alta</span>
-          </article>
+</div>
 
-          <article class="mission-card medium" data-house="baratheon">
-            <div class="mission-info">
-              <h3>Revisar ejército del Dominio</h3>
-              <span class="meta">Casa Baratheon</span>
-            </div>
-            <span class="priority">Media</span>
-          </article>
 
-          <article class="mission-card high" data-house="targaryen">
-            <div class="mission-info">
-              <h3>Conquistar Desembarco del Rey</h3>
-              <span class="meta">Casa Targaryen</span>
-            </div>
-            <span class="priority">Alta</span>
-          </article>
+<!-- PANEL CENTRAL -->
 
-          <article class="mission-card low" data-house="lannister">
-            <div class="mission-info">
-              <h3>Organizar banquete real</h3>
-              <span class="meta">Casa Lannister</span>
-            </div>
-            <span class="priority">Baja</span>
-          </article>
+<div class="main-panel">
 
-        </div>
-      </section>
-    </main>
+<div class="main-header">
 
-  </div>
+<h2>Amenazas del Reino</h2>
 
-  <script src="script.js"></script>
+<p id="taskCounter">0 activas 0 completadas</p>
+
+</div>
+
+<div class="progress-container">
+<div id="progressBar"></div>
+</div>
+
+
+<div class="controls">
+
+<input id="taskInput" placeholder="Nueva misión...">
+
+<select id="houseSelect">
+
+<option value="stark">Stark</option>
+<option value="lannister">Lannister</option>
+<option value="targaryen">Targaryen</option>
+<option value="baratheon">Baratheon</option>
+
+</select>
+
+<select id="prioritySelect">
+
+<option value="alta">Alta</option>
+<option value="media">Media</option>
+<option value="baja">Baja</option>
+
+</select>
+
+<button onclick="addTask()">Añadir</button>
+
+</div>
+
+<input id="search" placeholder="Buscar misión...">
+
+
+<div id="taskList"></div>
+
+</div>
+
+
+<!-- SIDEBAR DERECHA -->
+
+<div class="sidebar-right">
+
+<h3>Estado del Reino</h3>
+
+<ul>
+
+<li>🐺 Stark <span id="countStark">0</span></li>
+<li>🦁 Lannister <span id="countLannister">0</span></li>
+<li>🐉 Targaryen <span id="countTargaryen">0</span></li>
+<li>🦌 Baratheon <span id="countBaratheon">0</span></li>
+
+</ul>
+
+<h3>Prioridades</h3>
+
+<ul>
+
+<li>🔥 Alta <span id="altaCount">0</span></li>
+<li>⚔ Media <span id="mediaCount">0</span></li>
+<li>🛡 Baja <span id="bajaCount">0</span></li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">

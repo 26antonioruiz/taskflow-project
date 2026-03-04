@@ -1,62 +1,374 @@
-:root {
-  --bg-main: url('medieval-bg.jpg');
-  --bg-surface: rgba(23,26,33,0.9);
-  --bg-card: rgba(29,33,43,0.95);
+body{
 
-  --gold: #c6a75e;
-  --gold-soft: #e6d2a2;
+margin:0;
+background:#050505;
+color:white;
+font-family:'Cinzel', serif;
 
-  --text-main: #e5e7eb;
-  --text-secondary: #9ca3af;
-
-  --danger: #b91c1c;
-  --warning: #d97706;
-  --success: #15803d;
-
-  --radius: 12px;
-  --spacing-sm: 0.75rem;
-  --spacing-md: 1.25rem;
-  --spacing-lg: 2rem;
-
-  --transition: 0.3s ease;
 }
 
-body {
-  font-family: 'EB Garamond', serif;
-  background: var(--bg-main) no-repeat center center fixed;
-  background-size: cover;
-  color: var(--text-main);
-  margin: 0;
+
+/* HEADER */
+
+header{
+
+height:320px;
+
+background-image:
+linear-gradient(rgba(5,15,35,0.55), rgba(5,15,35,0.95)),
+url("img/medieval.jpg");
+
+background-size:cover;
+background-position:center;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+border-bottom:1px solid #caa85d;
+
 }
 
-.hero { background: rgba(0,0,0,0.7); text-align:center; padding:var(--spacing-lg); border-bottom:2px solid var(--gold);}
-.hero h1 { font-family:'Cinzel', serif; font-size:2.8rem; color:var(--gold); letter-spacing:2px; position:relative;}
-.hero h1::after { content:''; position:absolute; left:-50%; top:0; width:50%; height:100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent); animation: shine 5s infinite;}
-@keyframes shine {0%{left:-50%}100%{left:150%}}
+header h1{
 
-.app-layout { display:flex; min-height:calc(100vh - 140px); }
+font-size:48px;
+color:#caa85d;
+letter-spacing:3px;
+margin:0;
 
-.sidebar { width:250px; background:var(--bg-surface); padding:var(--spacing-lg); border-right:1px solid var(--gold); }
-.sidebar li { padding:var(--spacing-sm); border-radius:var(--radius); cursor:pointer; transition:all 0.3s ease;}
-.sidebar li.active { background:rgba(198,167,94,0.25); color:var(--gold-soft); animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+}
 
-.main-content { flex:1; padding:var(--spacing-lg); position:relative; transition: background-image 0.5s ease; background-repeat:no-repeat; background-position:center; background-size:25%; background-blend-mode: overlay;}
+header p{
 
-.mission-list{display:flex; flex-direction:column; gap:var(--spacing-md);}
-.mission-card{display:flex; justify-content:space-between; align-items:center; background:var(--bg-card); padding:var(--spacing-md); border-radius:var(--radius); border-left:4px solid transparent; cursor:pointer; opacity:0; transform:translateY(20px); animation:fadeIn 0.6s forwards; transition:all 0.3s ease;}
-.mission-card:hover{ transform:translateY(-6px); box-shadow:0 15px 25px rgba(198,167,94,0.6); border-left-color:var(--gold); }
-.high{border-left-color:var(--danger);}
-.medium{border-left-color:var(--warning);}
-.low{border-left-color:var(--success);}
-.completed{opacity:0.5; text-decoration:line-through; box-shadow: 0 0 15px var(--gold);}
+font-size:13px;
+opacity:0.9;
+margin-top:8px;
 
-@keyframes fadeIn{to{opacity:1; transform:translateY(0);}}
+}
 
-.status-pill{background: rgba(0,0,0,0.5); padding:4px 8px; border-radius:10px; margin-left:10px;}
 
-body::-webkit-scrollbar{width:10px;}
-body::-webkit-scrollbar-track{background:rgba(0,0,0,0.3);}
-body::-webkit-scrollbar-thumb{background:var(--gold); border-radius:10px;}
 
-@media(max-width:768px){.app-layout{flex-direction:column}.sidebar{width:100%; border-right:none; border-bottom:1px solid rgba(255,255,255,0.05);}}
+/* LAYOUT PRINCIPAL */
+
+.layout{
+
+width:90%;
+
+margin:60px auto;
+
+display:grid;
+
+grid-template-columns:auto 1fr auto;
+
+gap:40px;
+
+align-items:start;
+
+}
+
+
+/* PANELES */
+
+.sidebar-left,
+.sidebar-right,
+.main-panel{
+
+background:#0b0b0b;
+
+padding:30px;
+
+border-radius:16px;
+
+box-shadow:
+0 12px 35px rgba(0,0,0,0.6),
+0 0 20px rgba(0,0,0,0.4);
+
+}
+
+
+
+/* PANEL CENTRAL MAS GRANDE */
+
+.main-panel{
+
+min-height:550px;
+
+}
+
+
+
+/* SIDEBAR */
+
+.sidebar-left ul,
+.sidebar-right ul{
+
+list-style:none;
+padding:0;
+margin:0;
+
+}
+
+.sidebar-left li{
+
+padding:10px;
+cursor:pointer;
+border-radius:8px;
+transition:0.2s;
+
+}
+
+.sidebar-left li:hover{
+background:#1a1a1a;
+}
+
+.active{
+
+background:#caa85d;
+color:black;
+
+}
+
+
+
+/* TITULOS */
+
+h2,h3{
+
+margin-top:0;
+letter-spacing:1px;
+font-weight:600;
+
+}
+
+
+
+/* HEADER DEL PANEL CENTRAL */
+
+.main-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+
+
+/* PROGRESS BAR */
+
+.progress-container{
+
+height:8px;
+background:#1a1a1a;
+border-radius:10px;
+margin:15px 0;
+
+}
+
+#progressBar{
+
+height:100%;
+width:0%;
+
+background:linear-gradient(
+90deg,
+#caa85d,
+#e6c37a
+);
+
+border-radius:10px;
+
+}
+
+
+
+
+
+/* CONTROLES */
+
+.controls{
+
+display:flex;
+gap:10px;
+margin:20px 0;
+
+}
+
+input,
+select{
+
+background:#1a1a1a;
+border:1px solid rgba(202,168,93,0.2);
+padding:8px;
+color:white;
+border-radius:6px;
+
+}
+
+button{
+
+background:#caa85d;
+border:none;
+padding:8px 15px;
+cursor:pointer;
+border-radius:6px;
+
+}
+
+button:hover{
+
+opacity:0.9;
+
+}
+
+#search{
+
+width:100%;
+margin-bottom:20px;
+
+}
+
+
+
+/* TARJETAS DE MISION */
+
+.mission{
+
+position:relative;
+
+background:linear-gradient(
+90deg,
+#1b1b1b 0%,
+#181818 70%,
+#111111 100%
+);
+
+border:1px solid rgba(202,168,93,0.15);
+
+padding:20px;
+
+border-radius:12px;
+
+margin-bottom:18px;
+
+cursor:pointer;
+
+transition:all 0.25s ease;
+
+overflow:hidden;
+
+}
+
+.mission:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 20px rgba(0,0,0,0.4);
+
+}
+
+
+
+/* LOGOS DE CASAS */
+
+.mission::after{
+content:"";
+
+position:absolute;
+
+right:0;
+top:0;
+
+width:40%;
+height:100%;
+
+background-size:contain;
+background-repeat:no-repeat;
+background-position:right center;
+
+opacity:0.55;
+
+filter:brightness(1.5) contrast(1.3);
+}
+
+
+
+.stark::after{
+background-image:url("img/stark.png");
+}
+
+.lannister::after{
+background-image:url("img/lannister.jpg");
+}
+
+.targaryen::after{
+background-image:url("img/targaryen.png");
+}
+
+.baratheon::after{
+background-image:url("img/baratheon.png");
+}
+
+
+/* MISION COMPLETADA */
+
+.completed{
+
+text-decoration:line-through;
+opacity:0.5;
+
+}
+.main-panel{
+
+min-height:500px;
+
+}
+
+.sidebar-left,
+.sidebar-right{
+
+min-height:400px;
+
+}
+.sidebar-left,
+.sidebar-right{
+
+background:#0b0b0b;
+
+border:1px solid rgba(202,168,93,0.2);
+
+}
+
+.main-panel{
+
+background:#101010;
+
+border:1px solid rgba(202,168,93,0.15);
+
+}
+.delete{
+
+background:#8b0000;
+
+color:white;
+
+border:none;
+
+padding:5px 10px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+margin-top:8px;
+
+transition:0.2s;
+
+}
+
+.delete:hover{
+
+background:#b30000;
+
+}
