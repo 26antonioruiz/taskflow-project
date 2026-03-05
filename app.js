@@ -1,274 +1,390 @@
-const taskList = document.getElementById("taskList")
-
-/* CARGAR DESDE LOCALSTORAGE */
-
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [
 
-{ text:"Defender el Muro del Norte", house:"stark", priority:"alta", completed:false },
-{ text:"Reforzar Invernalia", house:"stark", priority:"media", completed:false },
-{ text:"Explorar Bosque de los Dioses", house:"stark", priority:"baja", completed:false },
-{ text:"Vigilar Caminantes Blancos", house:"stark", priority:"alta", completed:false },
-{ text:"Patrullar el Norte", house:"stark", priority:"media", completed:false },
+{
+id:1,
+text:"Defender el Muro del Norte",
+house:"stark",
+priority:"alta",
+completed:false
+},
 
-{ text:"Blindar Desembarco del Rey", house:"lannister", priority:"alta", completed:false },
-{ text:"Proteger el Banco de Hierro", house:"lannister", priority:"media", completed:false },
-{ text:"Recaudar impuestos", house:"lannister", priority:"baja", completed:false },
-{ text:"Asegurar rutas comerciales", house:"lannister", priority:"media", completed:false },
-{ text:"Defender la Fortaleza Roja", house:"lannister", priority:"alta", completed:false },
+{
+id:2,
+text:"Reforzar Invernalia",
+house:"stark",
+priority:"media",
+completed:false
+},
 
-{ text:"Entrenar dragones", house:"targaryen", priority:"alta", completed:false },
-{ text:"Explorar Rocadragón", house:"targaryen", priority:"media", completed:false },
-{ text:"Reclutar aliados", house:"targaryen", priority:"baja", completed:false },
-{ text:"Conquistar territorios", house:"targaryen", priority:"alta", completed:false },
-{ text:"Dominar el fuego", house:"targaryen", priority:"media", completed:false },
+{
+id:3,
+text:"Explorar Bosque de los Dioses",
+house:"stark",
+priority:"baja",
+completed:false
+},
 
-{ text:"Controlar tormentas", house:"baratheon", priority:"alta", completed:false },
-{ text:"Fortificar Bastión de Tormentas", house:"baratheon", priority:"media", completed:false },
-{ text:"Entrenar caballeros", house:"baratheon", priority:"baja", completed:false },
-{ text:"Vigilar la costa", house:"baratheon", priority:"media", completed:false },
-{ text:"Defender las tierras de la tormenta", house:"baratheon", priority:"alta", completed:false }
+{
+id:4,
+text:"Vigilar Caminantes Blancos",
+house:"stark",
+priority:"alta",
+completed:false
+},
+
+{
+id:5,
+text:"Entrenar Guardia Stark",
+house:"stark",
+priority:"media",
+completed:false
+},
+
+{
+id:6,
+text:"Recaudar oro en Roca Casterly",
+house:"lannister",
+priority:"media",
+completed:false
+},
+
+{
+id:7,
+text:"Proteger a Tyrion",
+house:"lannister",
+priority:"alta",
+completed:false
+},
+
+{
+id:8,
+text:"Espiar en Desembarco",
+house:"lannister",
+priority:"baja",
+completed:false
+},
+
+{
+id:9,
+text:"Negociar con Tyrell",
+house:"lannister",
+priority:"media",
+completed:false
+},
+
+{
+id:10,
+text:"Expandir ejército Lannister",
+house:"lannister",
+priority:"alta",
+completed:false
+},
+
+{
+id:11,
+text:"Entrenar dragones",
+house:"targaryen",
+priority:"alta",
+completed:false
+},
+
+{
+id:12,
+text:"Recuperar Meereen",
+house:"targaryen",
+priority:"media",
+completed:false
+},
+
+{
+id:13,
+text:"Reclutar Inmaculados",
+house:"targaryen",
+priority:"media",
+completed:false
+},
+
+{
+id:14,
+text:"Explorar Essos",
+house:"targaryen",
+priority:"baja",
+completed:false
+},
+
+{
+id:15,
+text:"Fortalecer flota Targaryen",
+house:"targaryen",
+priority:"alta",
+completed:false
+},
+
+{
+id:16,
+text:"Reforzar Bastión de Tormentas",
+house:"baratheon",
+priority:"media",
+completed:false
+},
+
+{
+id:17,
+text:"Entrenar caballeros Baratheon",
+house:"baratheon",
+priority:"baja",
+completed:false
+},
+
+{
+id:18,
+text:"Proteger costa del Este",
+house:"baratheon",
+priority:"media",
+completed:false
+},
+
+{
+id:19,
+text:"Convocar Consejo de Guerra",
+house:"baratheon",
+priority:"alta",
+completed:false
+},
+
+{
+id:20,
+text:"Patrullar Tierras de la Tormenta",
+house:"baratheon",
+priority:"baja",
+completed:false
+}
 
 ]
+let filter = "all"
 
-let currentFilter = "all"
+const list = document.getElementById("tasks")
+const status = document.getElementById("status")
+const progress = document.getElementById("progress")
+
+const alta = document.getElementById("altaCount")
+const media = document.getElementById("mediaCount")
+const baja = document.getElementById("bajaCount")
+
+const houseStats = document.getElementById("houseStats")
 
 
+/* =========================
+   DARK MODE
+========================= */
 
-/* GUARDAR EN LOCALSTORAGE */
+const themeBtn = document.getElementById("themeBtn")
 
-function saveTasks(){
+themeBtn.onclick = () => {
 
-localStorage.setItem("tasks", JSON.stringify(tasks))
+	document.documentElement.classList.toggle("dark")
 
+	localStorage.setItem(
+		"theme",
+		document.documentElement.classList.contains("dark")
+			? "dark"
+			: "light"
+	)
+}
+
+if (localStorage.getItem("theme") === "dark") {
+	document.documentElement.classList.add("dark")
 }
 
 
+/* =========================
+   ADD TASK
+========================= */
 
-/* AÑADIR MISIÓN */
+function addTask() {
 
-function addTask(){
+	const text = document.getElementById("taskInput").value
+	const house = document.getElementById("houseSelect").value
+	const priority = document.getElementById("prioritySelect").value
 
-const text = document.getElementById("taskInput").value
-const house = document.getElementById("houseSelect").value
-const priority = document.getElementById("prioritySelect").value
+	if (!text) return
 
-if(text.trim()==="") return
+	tasks.push({
+		id: Date.now(),
+		text,
+		house,
+		priority,
+		completed: false
+	})
 
-tasks.push({
+	save()
+	render()
 
-text,
-house,
-priority,
-completed:false
-
-})
-
-document.getElementById("taskInput").value=""
-
-saveTasks()
-
-render()
-
+	document.getElementById("taskInput").value = ""
 }
 
 
+/* =========================
+   DELETE TASK
+========================= */
 
-/* RENDERIZAR MISIONES */
+function deleteTask(id) {
 
-function render(){
+	tasks = tasks.filter(task => task.id !== id)
 
-taskList.innerHTML=""
-
-tasks
-.filter(task => currentFilter==="all" || task.house===currentFilter)
-
-.forEach((task,index)=>{
-
-const card = document.createElement("div")
-
-card.className = "mission " + task.house
-
-if(task.completed){
-card.classList.add("completed")
-}
-
-card.innerHTML = `
-
-<h4>${task.text}</h4>
-<p>Casa ${task.house}</p>
-
-<button class="delete">✖</button>
-
-`
-
-
-
-/* COMPLETAR MISIÓN */
-
-card.addEventListener("click",()=>{
-
-task.completed = !task.completed
-
-saveTasks()
-
-render()
-
-})
-
-
-
-/* ELIMINAR MISIÓN */
-
-card.querySelector(".delete").addEventListener("click",(e)=>{
-
-e.stopPropagation()
-
-tasks.splice(index,1)
-
-saveTasks()
-
-render()
-
-})
-
-taskList.appendChild(card)
-
-})
-
-updateStats()
-updateProgress()
-
+	save()
+	render()
 }
 
 
+/* =========================
+   COMPLETE TASK
+========================= */
 
-/* BARRA DE PROGRESO */
+function toggleTask(id) {
 
-function updateProgress(){
+	const task = tasks.find(t => t.id === id)
 
-const total = tasks.length
+	task.completed = !task.completed
 
-const completed = tasks.filter(t=>t.completed).length
-
-const active = total - completed
-
-document.getElementById("taskCounter").textContent =
-`${active} activas ${completed} completadas`
-
-const percent = total===0 ? 0 : (completed/total)*100
-
-document.getElementById("progressBar").style.width = percent + "%"
-
+	save()
+	render()
 }
 
 
+/* =========================
+   SAVE LOCAL STORAGE
+========================= */
 
-/* ESTADÍSTICAS */
-
-function updateStats(){
-
-const houses = {
-
-stark:0,
-lannister:0,
-targaryen:0,
-baratheon:0
-
-}
-
-const priority = {
-
-alta:0,
-media:0,
-baja:0
-
-}
-
-tasks.forEach(t=>{
-
-houses[t.house]++
-priority[t.priority]++
-
-})
-
-document.getElementById("countStark").textContent = houses.stark
-document.getElementById("countLannister").textContent = houses.lannister
-document.getElementById("countTargaryen").textContent = houses.targaryen
-document.getElementById("countBaratheon").textContent = houses.baratheon
-
-document.getElementById("altaCount").textContent = priority.alta
-document.getElementById("mediaCount").textContent = priority.media
-document.getElementById("bajaCount").textContent = priority.baja
-
+function save() {
+	localStorage.setItem("tasks", JSON.stringify(tasks))
 }
 
 
+/* =========================
+   FILTER HOUSE
+========================= */
 
-/* FILTRO POR CASAS */
+function filterHouse(house) {
 
-document.querySelectorAll(".sidebar-left li").forEach(item=>{
-
-item.addEventListener("click",()=>{
-
-document.querySelectorAll(".sidebar-left li")
-.forEach(li=>li.classList.remove("active"))
-
-item.classList.add("active")
-
-const text = item.textContent.toLowerCase()
-
-if(text.includes("stark")){
-
-currentFilter="stark"
-
-}
-else if(text.includes("lannister")){
-
-currentFilter="lannister"
-
-}
-else if(text.includes("targaryen")){
-
-currentFilter="targaryen"
-
-}
-else if(text.includes("baratheon")){
-
-currentFilter="baratheon"
-
-}
-else{
-
-currentFilter="all"
-
+	filter = house
+	render()
 }
 
-render()
 
-})
+/* =========================
+   RENDER
+========================= */
 
-})
+function render() {
 
+	list.innerHTML = ""
 
+	let active = 0
+	let completed = 0
 
-/* BUSCADOR */
+	let altaC = 0
+	let mediaC = 0
+	let bajaC = 0
 
-document.getElementById("search").addEventListener("input",(e)=>{
-
-const value = e.target.value.toLowerCase()
-
-document.querySelectorAll(".mission").forEach(card=>{
-
-const text = card.innerText.toLowerCase()
-
-card.style.display = text.includes(value) ? "block" : "none"
-
-})
-
-})
-
+	let houseCount = {
+		stark: 0,
+		lannister: 0,
+		targaryen: 0,
+		baratheon: 0
+	}
 
 
-/* INICIALIZAR */
+	tasks
+		.filter(t => filter === "all" || t.house === filter)
+		.forEach(t => {
+
+			const card = document.createElement("div")
+                if (t.completed) {
+	            card.classList.add("opacity-40", "grayscale", "scale-95")
+                    
+            }
+
+			card.className =
+	            "task flex border border-yellow-600 rounded-xl overflow-hidden bg-gray-100 dark:bg-black transition-opacity duration-300"
+
+			card.onclick = () => toggleTask(t.id)
+
+
+			const priorityBar = document.createElement("div")
+			priorityBar.style.width = "8px"
+
+			if (t.priority === "alta") priorityBar.style.background = "#dc2626"
+			if (t.priority === "media") priorityBar.style.background = "#f59e0b"
+			if (t.priority === "baja") priorityBar.style.background = "#22c55e"
+
+
+			const content = document.createElement("div")
+			content.className = "flex-1 p-6"
+
+
+			const title = document.createElement("h3")
+			title.className = "text-lg font-bold"
+			title.innerText = t.text
+
+
+			if (t.completed) {
+				title.classList.add("completed")
+				completed++
+			} else {
+				active++
+			}
+
+
+			const house = document.createElement("p")
+			house.innerText = "Casa " + t.house
+
+
+			const del = document.createElement("button")
+			del.innerText = "X"
+			del.className = "mt-3 bg-red-600 text-white px-2 rounded"
+
+			del.onclick = (e) => {
+				e.stopPropagation()
+				deleteTask(t.id)
+			}
+
+
+			content.append(title, house, del)
+
+
+			const img = document.createElement("img")
+			img.src = "img/" + t.house + ".png"
+			img.className = "w-40 object-cover"
+
+
+			card.append(priorityBar, content, img)
+
+			list.appendChild(card)
+
+
+			houseCount[t.house]++
+
+			if (t.priority === "alta") altaC++
+			if (t.priority === "media") mediaC++
+			if (t.priority === "baja") bajaC++
+		})
+
+
+	status.innerText = `${active} activas · ${completed} completadas`
+
+	progress.style.width = (completed / tasks.length * 100 || 0) + "%"
+
+	alta.innerText = altaC
+	media.innerText = mediaC
+	baja.innerText = bajaC
+
+	houseStats.innerHTML = `
+		<li>Stark ${houseCount.stark}</li>
+		<li>Lannister ${houseCount.lannister}</li>
+		<li>Targaryen ${houseCount.targaryen}</li>
+		<li>Baratheon ${houseCount.baratheon}</li>
+	`
+}
 
 render()
