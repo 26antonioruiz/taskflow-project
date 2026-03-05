@@ -384,5 +384,4 @@ function render() {
 		<li>Baratheon ${houseCount.baratheon}</li>
 	`
 }
-
 render()
