@@ -294,22 +294,20 @@ function render() {
 		baratheon: 0
 	}
 
-
 	tasks
 		.filter(t => filter === "all" || t.house === filter)
 		.forEach(t => {
 
 			const card = document.createElement("div")
-                if (t.completed) {
-	            card.classList.add("opacity-40", "grayscale", "scale-95")
-                    
-            }
 
 			card.className =
-	            "task flex border border-yellow-600 rounded-xl overflow-hidden bg-gray-100 dark:bg-black transition-opacity duration-300"
+				"task flex border border-yellow-600 rounded-xl overflow-hidden bg-gray-100 dark:bg-black transition-all duration-300"
+
+			if (t.completed) {
+				card.classList.add("opacity-40", "grayscale", "scale-95")
+			}
 
 			card.onclick = () => toggleTask(t.id)
-
 
 			const priorityBar = document.createElement("div")
 			priorityBar.style.width = "8px"
