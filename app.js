@@ -1,167 +1,15 @@
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [
+/* =========================
+   STATE
+========================= */
 
-{
-id:1,
-text:"Defender el Muro del Norte",
-house:"stark",
-priority:"alta",
-completed:false
-},
+let tasks = JSON.parse(localStorage.getItem("tasks")) || []
 
-{
-id:2,
-text:"Reforzar Invernalia",
-house:"stark",
-priority:"media",
-completed:false
-},
-
-{
-id:3,
-text:"Explorar Bosque de los Dioses",
-house:"stark",
-priority:"baja",
-completed:false
-},
-
-{
-id:4,
-text:"Vigilar Caminantes Blancos",
-house:"stark",
-priority:"alta",
-completed:false
-},
-
-{
-id:5,
-text:"Entrenar Guardia Stark",
-house:"stark",
-priority:"media",
-completed:false
-},
-
-{
-id:6,
-text:"Recaudar oro en Roca Casterly",
-house:"lannister",
-priority:"media",
-completed:false
-},
-
-{
-id:7,
-text:"Proteger a Tyrion",
-house:"lannister",
-priority:"alta",
-completed:false
-},
-
-{
-id:8,
-text:"Espiar en Desembarco",
-house:"lannister",
-priority:"baja",
-completed:false
-},
-
-{
-id:9,
-text:"Negociar con Tyrell",
-house:"lannister",
-priority:"media",
-completed:false
-},
-
-{
-id:10,
-text:"Expandir ejército Lannister",
-house:"lannister",
-priority:"alta",
-completed:false
-},
-
-{
-id:11,
-text:"Entrenar dragones",
-house:"targaryen",
-priority:"alta",
-completed:false
-},
-
-{
-id:12,
-text:"Recuperar Meereen",
-house:"targaryen",
-priority:"media",
-completed:false
-},
-
-{
-id:13,
-text:"Reclutar Inmaculados",
-house:"targaryen",
-priority:"media",
-completed:false
-},
-
-{
-id:14,
-text:"Explorar Essos",
-house:"targaryen",
-priority:"baja",
-completed:false
-},
-
-{
-id:15,
-text:"Fortalecer flota Targaryen",
-house:"targaryen",
-priority:"alta",
-completed:false
-},
-
-{
-id:16,
-text:"Reforzar Bastión de Tormentas",
-house:"baratheon",
-priority:"media",
-completed:false
-},
-
-{
-id:17,
-text:"Entrenar caballeros Baratheon",
-house:"baratheon",
-priority:"baja",
-completed:false
-},
-
-{
-id:18,
-text:"Proteger costa del Este",
-house:"baratheon",
-priority:"media",
-completed:false
-},
-
-{
-id:19,
-text:"Convocar Consejo de Guerra",
-house:"baratheon",
-priority:"alta",
-completed:false
-},
-
-{
-id:20,
-text:"Patrullar Tierras de la Tormenta",
-house:"baratheon",
-priority:"baja",
-completed:false
-}
-
-]
 let filter = "all"
+let searchText = ""
+
+/* =========================
+   DOM ELEMENTS
+========================= */
 
 const list = document.getElementById("tasks")
 const status = document.getElementById("status")
@@ -172,7 +20,7 @@ const media = document.getElementById("mediaCount")
 const baja = document.getElementById("bajaCount")
 
 const houseStats = document.getElementById("houseStats")
-
+const searchInput = document.getElementById("search")
 
 /* =========================
    DARK MODE
@@ -196,18 +44,62 @@ if (localStorage.getItem("theme") === "dark") {
 	document.documentElement.classList.add("dark")
 }
 
+/* =========================
+   SEARCH
+========================= */
+
+searchInput.addEventListener("input", e => {
+
+	searchText = e.target.value.toLowerCase()
+	render()
+
+})
+
+/* =========================
+   VALIDATION
+========================= */
+
+/**
+ * Valida los datos de una tarea antes de crearla
+ * @param {string} text
+ * @param {string} house
+ * @param {string} priority
+ * @returns {boolean}
+ */
+function validateTask(text, house, priority) {
+
+	if (!text || text.length < 3) {
+		alert("La misión debe tener al menos 3 caracteres")
+		return false
+	}
+
+	if (!house) {
+		alert("Selecciona una casa")
+		return false
+	}
+
+	if (!priority) {
+		alert("Selecciona una prioridad")
+		return false
+	}
+
+	return true
+}
 
 /* =========================
    ADD TASK
 ========================= */
 
+/**
+ * Crea una nueva tarea
+ */
 function addTask() {
 
-	const text = document.getElementById("taskInput").value
+	const text = document.getElementById("taskInput").value.trim()
 	const house = document.getElementById("houseSelect").value
 	const priority = document.getElementById("prioritySelect").value
 
-	if (!text) return
+	if (!validateTask(text, house, priority)) return
 
 	tasks.push({
 		id: Date.now(),
@@ -217,49 +109,105 @@ function addTask() {
 		completed: false
 	})
 
-	save()
+	saveTasks()
 	render()
 
 	document.getElementById("taskInput").value = ""
 }
 
+/* =========================
+   EDIT TASK
+========================= */
+
+/**
+ * Edita el texto de una tarea
+ * @param {number} id
+ */
+function editTask(id) {
+
+	const task = tasks.find(t => t.id === id)
+
+	if (!task) return
+
+	const newText = prompt("Editar misión:", task.text)
+
+	if (!newText) return
+
+	task.text = newText.trim()
+
+	saveTasks()
+	render()
+
+}
 
 /* =========================
    DELETE TASK
 ========================= */
 
+/**
+ * Elimina una tarea
+ * @param {number} id
+ */
 function deleteTask(id) {
 
 	tasks = tasks.filter(task => task.id !== id)
 
-	save()
+	saveTasks()
 	render()
-}
 
+}
 
 /* =========================
    COMPLETE TASK
 ========================= */
 
+/**
+ * Cambia el estado de completado de una tarea
+ * @param {number} id
+ */
 function toggleTask(id) {
 
 	const task = tasks.find(t => t.id === id)
 
+	if (!task) return
+
 	task.completed = !task.completed
 
-	save()
+	saveTasks()
 	render()
-}
 
+}
 
 /* =========================
-   SAVE LOCAL STORAGE
+   SORT BY PRIORITY
 ========================= */
 
-function save() {
-	localStorage.setItem("tasks", JSON.stringify(tasks))
+function sortByPriority() {
+
+	const order = {
+		alta: 1,
+		media: 2,
+		baja: 3
+	}
+
+	tasks.sort((a, b) => order[a.priority] - order[b.priority])
+
+	render()
+
 }
 
+/* =========================
+   STORAGE
+========================= */
+
+/**
+ * Guarda las tareas en LocalStorage
+ */
+function saveTasks() {
+
+	localStorage.setItem("tasks", JSON.stringify(tasks))
+
+}
 
 /* =========================
    FILTER HOUSE
@@ -269,8 +217,87 @@ function filterHouse(house) {
 
 	filter = house
 	render()
+
 }
 
+/* =========================
+   PRIORITY COLOR
+========================= */
+
+/**
+ * Devuelve el color de la prioridad
+ */
+function getPriorityColor(priority) {
+
+	const colors = {
+		alta: "#dc2626",
+		media: "#f59e0b",
+		baja: "#22c55e"
+	}
+
+	return colors[priority] || "#999"
+
+}
+
+/* =========================
+   CREATE TASK CARD
+========================= */
+
+function createTaskCard(t) {
+
+	const card = document.createElement("div")
+
+	card.className =
+		"task flex border border-yellow-600 rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-800 shadow-md transition-all duration-300"
+
+	if (t.completed) {
+		card.classList.add("opacity-40", "grayscale", "scale-95")
+	}
+
+	card.onclick = () => toggleTask(t.id)
+
+	const priorityBar = document.createElement("div")
+	priorityBar.style.width = "8px"
+	priorityBar.style.background = getPriorityColor(t.priority)
+
+	const content = document.createElement("div")
+	content.className = "flex-1 p-6"
+
+	const title = document.createElement("h3")
+	title.className = "text-lg font-bold"
+	title.innerText = t.text
+
+	const house = document.createElement("p")
+	house.innerText = "Casa " + t.house
+
+	const buttons = document.createElement("div")
+	buttons.className = "flex gap-3 mt-3"
+
+	const editBtn = document.createElement("button")
+	editBtn.innerText = "✏️"
+	editBtn.className = "bg-yellow-600 px-2 rounded"
+
+	editBtn.onclick = (e) => {
+		e.stopPropagation()
+		editTask(t.id)
+	}
+
+	const del = document.createElement("button")
+	del.innerText = "X"
+	del.className = "bg-red-600 px-2 rounded"
+
+	del.onclick = (e) => {
+		e.stopPropagation()
+		deleteTask(t.id)
+	}
+
+	buttons.append(editBtn, del)
+	content.append(title, house, buttons)
+	card.append(priorityBar, content)
+
+	return card
+
+}
 
 /* =========================
    RENDER
@@ -280,108 +307,48 @@ function render() {
 
 	list.innerHTML = ""
 
-	let active = 0
-	let completed = 0
+	let filteredTasks = tasks
 
-	let altaC = 0
-	let mediaC = 0
-	let bajaC = 0
-
-	let houseCount = {
-		stark: 0,
-		lannister: 0,
-		targaryen: 0,
-		baratheon: 0
+	if (filter !== "all") {
+		filteredTasks = filteredTasks.filter(t => t.house === filter)
 	}
 
-	tasks
-		.filter(t => filter === "all" || t.house === filter)
-		.forEach(t => {
+	if (searchText) {
+		filteredTasks = filteredTasks.filter(t =>
+			t.text.toLowerCase().includes(searchText)
+		)
+	}
 
-			const card = document.createElement("div")
+	filteredTasks.forEach(t => {
+		list.appendChild(createTaskCard(t))
+	})
 
-			card.className =
-				"task flex border border-yellow-600 rounded-xl overflow-hidden bg-gray-100 dark:bg-black transition-all duration-300"
+	updateStats()
 
-			if (t.completed) {
-				card.classList.add("opacity-40", "grayscale", "scale-95")
-			}
-
-			card.onclick = () => toggleTask(t.id)
-
-			const priorityBar = document.createElement("div")
-			priorityBar.style.width = "8px"
-
-			if (t.priority === "alta") priorityBar.style.background = "#dc2626"
-			if (t.priority === "media") priorityBar.style.background = "#f59e0b"
-			if (t.priority === "baja") priorityBar.style.background = "#22c55e"
-
-
-			const content = document.createElement("div")
-			content.className = "flex-1 p-6"
-
-
-			const title = document.createElement("h3")
-			title.className = "text-lg font-bold"
-			title.innerText = t.text
-
-
-			if (t.completed) {
-				title.classList.add("completed")
-				completed++
-			} else {
-				active++
-			}
-
-
-			const house = document.createElement("p")
-			house.innerText = "Casa " + t.house
-
-
-			const del = document.createElement("button")
-			del.innerText = "X"
-			del.className = "mt-3 bg-red-600 text-white px-2 rounded"
-
-			del.onclick = (e) => {
-				e.stopPropagation()
-				deleteTask(t.id)
-			}
-
-
-			content.append(title, house, del)
-
-
-			const img = document.createElement("img")
-			img.src = "img/" + t.house + ".png"
-			img.className = "w-40 object-cover"
-
-
-			card.append(priorityBar, content, img)
-
-			list.appendChild(card)
-
-
-			houseCount[t.house]++
-
-			if (t.priority === "alta") altaC++
-			if (t.priority === "media") mediaC++
-			if (t.priority === "baja") bajaC++
-		})
-
-
-	status.innerText = `${active} activas · ${completed} completadas`
-
-	progress.style.width = (completed / tasks.length * 100 || 0) + "%"
-
-	alta.innerText = altaC
-	media.innerText = mediaC
-	baja.innerText = bajaC
-
-	houseStats.innerHTML = `
-		<li>Stark ${houseCount.stark}</li>
-		<li>Lannister ${houseCount.lannister}</li>
-		<li>Targaryen ${houseCount.targaryen}</li>
-		<li>Baratheon ${houseCount.baratheon}</li>
-	`
 }
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats() {
+
+	const completed = tasks.filter(t => t.completed).length
+	const total = tasks.length
+
+	status.innerText = `${total - completed} activas · ${completed} completadas`
+
+	const percent = total ? (completed / total) * 100 : 0
+	progress.style.width = percent + "%"
+
+	alta.innerText = tasks.filter(t => t.priority === "alta").length
+	media.innerText = tasks.filter(t => t.priority === "media").length
+	baja.innerText = tasks.filter(t => t.priority === "baja").length
+
+}
+
+/* =========================
+   INIT
+========================= */
+
 render()
