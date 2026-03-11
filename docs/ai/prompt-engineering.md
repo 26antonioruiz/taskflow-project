@@ -1,119 +1,163 @@
 # Prompt Engineering aplicado al desarrollo
 
-## Objetivo
+## Introducción
 
-Este documento recoge prompts útiles utilizados durante el desarrollo del proyecto TaskFlow.
+El prompt engineering consiste en diseñar instrucciones claras y estructuradas para obtener mejores respuestas de los modelos de inteligencia artificial.
 
-El prompt engineering permite obtener mejores resultados de los asistentes de inteligencia artificial.
+En el desarrollo de software, un buen prompt puede ayudar a generar código, detectar errores, refactorizar funciones o crear documentación automáticamente.
+
+Durante el desarrollo del proyecto TaskFlow se experimentó con distintos tipos de prompts para evaluar cómo afectan a la calidad de las respuestas generadas por la IA.
+
 
 ---
 
-# Prompt 1
+# Experimentos con distintos tipos de prompts
 
-Actúa como un desarrollador frontend senior y revisa este código JavaScript.
+Durante el experimento se probaron diferentes técnicas de prompt engineering:
+
+- definición de roles
+- few-shot prompting (dar ejemplos)
+- razonamiento paso a paso
+- uso de restricciones claras
+
+Estas técnicas ayudan a mejorar la precisión y utilidad de las respuestas generadas por la IA.
+
+
+---
+
+# Prompts utilizados
+
+## Prompt 1 — Definir un rol experto
+
+Prompt utilizado:
+
+Actúa como un desarrollador frontend senior. Revisa el siguiente código JavaScript y sugiere mejoras para hacerlo más limpio y mantenible.
 
 Por qué funciona:
 
-Definir un rol experto mejora la calidad de la respuesta.
+Asignar un rol específico al modelo mejora la calidad de la respuesta, ya que la IA intenta comportarse como un experto en el área indicada.
+
 
 ---
 
-# Prompt 2
+## Prompt 2 — Explicación de código
 
-Explain this code step by step.
+Prompt utilizado:
+
+Explain the following JavaScript function step by step.
 
 Por qué funciona:
 
-Obliga al modelo a explicar el razonamiento de forma estructurada.
+Pedir una explicación paso a paso obliga al modelo a estructurar mejor la respuesta y facilita la comprensión del código.
+
 
 ---
 
-# Prompt 3
+## Prompt 3 — Refactorización de código
 
-Refactor this function to make it cleaner and more readable.
+Prompt utilizado:
+
+Refactor this JavaScript function to make it cleaner, more readable and easier to maintain.
 
 Por qué funciona:
 
-Ayuda a mejorar la estructura del código.
+Este prompt define claramente el objetivo (refactorizar) y los criterios de mejora (legibilidad y mantenimiento).
+
 
 ---
 
-# Prompt 4
+## Prompt 4 — Generación de documentación
 
-Suggest improvements for this JavaScript project architecture.
+Prompt utilizado:
+
+Write JSDoc documentation for the following function.
 
 Por qué funciona:
 
-Permite obtener ideas para mejorar la arquitectura del proyecto.
+Especificar el formato de salida permite generar documentación estructurada automáticamente.
+
 
 ---
 
-# Prompt 5
+## Prompt 5 — Detección de errores
 
-Generate a function that validates form inputs.
+Prompt utilizado:
+
+Find potential bugs in this JavaScript code and explain why they occur.
 
 Por qué funciona:
 
-Es un prompt claro y específico.
+Este prompt indica claramente que la IA debe analizar el código en busca de errores y explicar su causa.
+
 
 ---
 
-# Prompt 6
+## Prompt 6 — Generación de código con restricciones
 
-Write JSDoc documentation for this function.
+Prompt utilizado:
+
+Generate a JavaScript function that validates form inputs. The function must be simple, readable and under 20 lines of code.
 
 Por qué funciona:
 
-Permite generar documentación automáticamente.
+El uso de restricciones claras ayuda a controlar la complejidad del código generado.
+
 
 ---
 
-# Prompt 7
+## Prompt 7 — Few-shot prompting
 
-Find potential bugs in this JavaScript code.
+Prompt utilizado:
+
+Example:
+
+Input: task = { text: "", completed: false }  
+Output: Task text cannot be empty
+
+Now generate similar validation logic for a task creation form.
 
 Por qué funciona:
 
-Ayuda a detectar errores.
+El few-shot prompting proporciona ejemplos que ayudan al modelo a entender mejor el tipo de respuesta esperada.
+
 
 ---
 
-# Prompt 8
+## Prompt 8 — Mejora de arquitectura
 
-Improve the performance of this function.
+Prompt utilizado:
+
+Suggest improvements for the architecture of this JavaScript project.
 
 Por qué funciona:
 
-Fomenta optimizaciones en el código.
+Este prompt permite obtener recomendaciones sobre estructura del proyecto, organización del código y buenas prácticas.
+
 
 ---
 
-# Prompt 9
+## Prompt 9 — Optimización de código
 
-Explain this algorithm as if teaching a beginner.
+Prompt utilizado:
+
+Improve the performance of this function without changing its behavior.
 
 Por qué funciona:
 
-Simplifica conceptos complejos.
+La restricción de mantener el mismo comportamiento evita que la IA cambie la lógica original del código.
+
 
 ---
 
-# Prompt 10
+## Prompt 10 — Explicación para principiantes
 
-Generate unit tests for this function.
+Prompt utilizado:
+
+Explain this JavaScript code as if teaching a beginner developer.
 
 Por qué funciona:
 
-Permite generar código de testing automáticamente.
+Este prompt adapta el nivel de explicación, haciendo que el contenido sea más fácil de entender.
+
 
 ---
-
-# Conclusión
-
-Un buen prompt debe incluir:
-
-* instrucciones claras
-* contexto
-* objetivo concreto
-
-Un buen diseño de prompts mejora significativamente la utilidad de la IA en programación.
