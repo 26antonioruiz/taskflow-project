@@ -213,3 +213,351 @@ git commit -m "docs: add MCP server installation and usage documentation"
 git push
 
 Con esto queda documentado el proceso de instalación y uso de servidores MCP dentro del proyecto TaskFlow.
+
+
+# Experimentos con IA en programación
+
+## Objetivo
+
+El objetivo de este experimento fue analizar cómo el uso de herramientas de inteligencia artificial puede afectar al proceso de desarrollo de software.
+
+Para ello se resolvieron varios problemas de programación primero **sin utilizar IA** y posteriormente **con ayuda de IA**.
+
+Se compararon los siguientes aspectos:
+
+- tiempo invertido
+- calidad del código generado
+- comprensión del problema
+
+
+---
+
+# Experimento 1 — Función debounce
+
+## Sin usar IA
+
+Problema: implementar una función debounce en JavaScript.
+
+Tiempo aproximado: 15 minutos.
+
+Código implementado:
+
+function debounce(fn, delay) {
+  let timer;
+
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+
+Observaciones:
+
+La implementación requirió recordar cómo funcionan los closures y los temporizadores en JavaScript.
+
+
+## Usando IA
+
+Prompt utilizado:
+
+Generate a JavaScript debounce function with a short explanation.
+
+Tiempo aproximado: 2 minutos.
+
+Código generado por IA:
+
+function debounce(fn, delay) {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+
+Observaciones:
+
+La IA generó el código correcto inmediatamente y añadió una explicación del funcionamiento.
+
+
+## Comparación
+
+Sin IA:
+
+- mayor tiempo invertido
+- mejor comprensión del problema
+
+Con IA:
+
+- solución mucho más rápida
+- código correcto desde el primer intento
+
+
+---
+
+# Experimento 2 — Filtrar tareas por prioridad
+
+## Sin usar IA
+
+Problema: crear una función que filtre tareas con prioridad alta.
+
+Tiempo aproximado: 5 minutos.
+
+Código implementado:
+
+function filterHighPriority(tasks) {
+  return tasks.filter(task => task.priority === "alta");
+}
+
+Observaciones:
+
+La implementación fue relativamente sencilla.
+
+
+## Usando IA
+
+Prompt utilizado:
+
+Write a JavaScript function that filters tasks with high priority.
+
+Tiempo aproximado: 1 minuto.
+
+Código generado:
+
+function filterHighPriority(tasks) {
+  return tasks.filter(task => task.priority === "alta");
+}
+
+
+## Comparación
+
+En este caso la diferencia fue mínima, ya que el problema era simple.
+
+La IA permitió obtener la solución más rápidamente.
+
+
+---
+
+# Experimento 3 — Validación de formulario
+
+## Sin usar IA
+
+Problema: validar que el texto de una tarea no esté vacío.
+
+Tiempo aproximado: 6 minutos.
+
+Código implementado:
+
+function validateTask(text) {
+  if (!text) {
+    alert("La tarea no puede estar vacía");
+    return false;
+  }
+
+  return true;
+}
+
+
+## Usando IA
+
+Prompt utilizado:
+
+Generate a simple JavaScript function that validates task input.
+
+Tiempo aproximado: 1 minuto.
+
+Código generado:
+
+function validateTask(text) {
+  if (!text || text.trim().length === 0) {
+    return false;
+  }
+
+  return true;
+}
+
+
+## Comparación
+
+La IA generó una validación ligeramente más robusta al incluir `trim()`.
+
+
+---
+
+# Experimentos relacionados con el proyecto TaskFlow
+
+Además de los ejercicios anteriores, se realizaron experimentos utilizando código del propio proyecto.
+
+---
+
+# Experimento 4 — Refactorización de función
+
+## Sin usar IA
+
+Se intentó mejorar manualmente la función `getPriorityColor`.
+
+Tiempo aproximado: 5 minutos.
+
+Código original:
+
+function getPriorityColor(priority) {
+
+  if(priority==="alta") return "#dc2626"
+  if(priority==="media") return "#f59e0b"
+  if(priority==="baja") return "#22c55e"
+
+}
+
+## Usando IA
+
+Prompt utilizado:
+
+Refactor this function to make it cleaner.
+
+Código generado:
+
+function getPriorityColor(priority) {
+  const colors = {
+    alta: "#dc2626",
+    media: "#f59e0b",
+    baja: "#22c55e"
+  };
+
+  return colors[priority];
+}
+
+## Comparación
+
+La versión generada por IA es más limpia y fácil de mantener.
+
+
+---
+
+# Experimento 5 — Generación de documentación
+
+## Sin usar IA
+
+Documentar manualmente funciones del proyecto utilizando comentarios.
+
+Tiempo aproximado: 10 minutos.
+
+## Usando IA
+
+Prompt utilizado:
+
+Write JSDoc documentation for this function.
+
+Tiempo aproximado: 1 minuto.
+
+Resultado:
+
+La IA generó comentarios JSDoc automáticamente para varias funciones.
+
+
+---
+
+# Experimento 6 — Detección de errores
+
+## Sin usar IA
+
+Revisión manual del archivo `app.js` para detectar posibles errores.
+
+Tiempo aproximado: 10 minutos.
+
+## Usando IA
+
+Prompt utilizado:
+
+Find potential bugs in this JavaScript file.
+
+Resultado:
+
+La IA sugirió añadir comprobaciones para evitar errores cuando una tarea no existe.
+
+
+---
+
+# Conclusión
+
+Los experimentos realizados muestran que el uso de inteligencia artificial puede mejorar significativamente la productividad en tareas de programación.
+
+Principales conclusiones:
+
+- la IA reduce el tiempo necesario para resolver problemas
+- la IA puede generar código correcto rápidamente
+- la revisión manual sigue siendo importante
+- utilizar IA no sustituye la comprensión del problema
+
+En el desarrollo del proyecto TaskFlow, la IA resultó especialmente útil para:
+
+- refactorizar funciones
+- generar documentación
+- detectar errores
+- sugerir mejoras en el código
+
+
+## Ampliación de TaskFlow con ayuda de IA
+
+Para ampliar las funcionalidades del proyecto TaskFlow se utilizó inteligencia artificial para generar ideas de mejora y ayudar en la implementación del código. A partir de estas sugerencias se añadieron nuevas funcionalidades al sistema de gestión de tareas.
+
+Antes de integrar cualquier fragmento de código generado por IA, se revisó manualmente para asegurar su correcto funcionamiento y adaptarlo a la estructura del proyecto.
+
+### Funcionalidades añadidas
+
+#### 1. Orden automático por prioridad
+
+Se implementó un sistema que ordena automáticamente las tareas según su nivel de prioridad.  
+Las tareas se muestran en el siguiente orden:
+
+- Alta
+- Media
+- Baja
+
+Esto permite visualizar primero las tareas más importantes y facilita la gestión de las misiones dentro del tablero.
+
+#### 2. Reordenar tareas mediante Drag & Drop
+
+Se añadió una funcionalidad de **arrastrar y soltar (Drag & Drop)** similar a la que utilizan aplicaciones como Trello.
+
+Esta funcionalidad permite reorganizar las tareas manualmente arrastrando una tarjeta sobre otra.  
+El sistema actualiza automáticamente el orden de las tareas en memoria y guarda los cambios en `localStorage`.
+
+Esto mejora la experiencia de usuario y permite organizar el flujo de trabajo de forma más flexible.
+
+#### 3. Filtro de tareas por casa
+
+Se añadió un sistema de filtrado que permite visualizar únicamente las tareas asociadas a una casa específica del universo de Juego de Tronos.
+
+Las casas disponibles son:
+
+- Stark
+- Lannister
+- Targaryen
+- Baratheon
+
+Al seleccionar una casa desde el panel lateral, el sistema filtra dinámicamente las tareas que pertenecen a esa casa.
+
+#### 4. Contador dinámico de tareas por casa
+
+Se implementó un panel llamado **Estado del Reino**, que muestra el número de tareas asignadas a cada casa.
+
+El contador se actualiza automáticamente cuando ocurre cualquiera de estas acciones:
+
+- se añade una nueva tarea
+- se completa una tarea
+- se elimina una tarea
+- se reorganizan las tareas
+
+Esto permite visualizar rápidamente la carga de trabajo de cada casa y mejora la comprensión del estado general del proyecto.
+
+### Uso de inteligencia artificial
+
+La inteligencia artificial se utilizó para:
+
+- generar ideas de nuevas funcionalidades
+- implementar la lógica de ordenación por prioridad
+- implementar la funcionalidad de Drag & Drop
+- mejorar el sistema de filtrado de tareas
+- optimizar el cálculo de estadísticas y contadores
+
+El código generado por IA fue revisado y adaptado manualmente para asegurar su correcta integración con el resto del proyecto.
