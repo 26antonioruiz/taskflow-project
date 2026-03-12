@@ -65,7 +65,6 @@ También incluye:
 
 El modo oscuro se activa mediante un botón que alterna la clase:
 
-```javascript
 document.documentElement.classList.toggle("dark")
 
 # Documentación asistida por IA
