@@ -1,9 +1,9 @@
 # ⚔ Consejo Real de Poniente – TaskFlow
 
-Aplicación web de gestión de tareas inspirada en *Game of Thrones*, desarrollada como proyecto de práctica de frontend.  
-Permite crear, organizar y completar misiones asignadas a las Grandes Casas de Poniente con diferentes niveles de prioridad.
+Aplicación web de gestión de tareas inspirada en *Game of Thrones*, desarrollada como proyecto de práctica de **frontend**.  
+Permite crear, organizar y completar misiones asignadas a las Grandes Casas de Poniente con distintos niveles de prioridad.
 
-La interfaz está diseñada con **Tailwind CSS** y cuenta con **modo oscuro**, sistema de prioridades y almacenamiento local.
+La interfaz está diseñada con **Tailwind CSS** e incluye **modo oscuro**, sistema de prioridades y almacenamiento local.
 
 ---
 
@@ -11,35 +11,35 @@ La interfaz está diseñada con **Tailwind CSS** y cuenta con **modo oscuro**, s
 
 Aplicación desplegada en Vercel:
 
-👉 [taskflow-project-176y.vercel.app](https://taskflow-project-176y.vercel.app)
+👉 https://taskflow-project-176y.vercel.app
 
 ---
 
 ## 🧰 Tecnologías utilizadas
 
-- HTML5
-- JavaScript (Vanilla JS)
-- Tailwind CSS
-- LocalStorage
-- Git & GitHub
+- HTML5  
+- JavaScript (Vanilla JS)  
+- Tailwind CSS  
+- LocalStorage  
+- Git & GitHub  
 - Vercel (deploy)
 
 ---
 
 ## 🎯 Funcionalidades
 
-- Crear nuevas misiones
-- Asignar misión a una casa
-- Definir prioridad de misión (Alta, Media, Baja)
-- Marcar misión como completada
-- Eliminar misiones
-- Barra de progreso basada en misiones completadas
-- Contador de prioridades
-- Estadísticas por casa
-- Filtrar por casa
-- Búsqueda de misiones
-- Modo oscuro / modo claro
-- Guardado automático en LocalStorage
+- Crear nuevas misiones  
+- Asignar una misión a una casa  
+- Definir prioridad de misión (Alta, Media, Baja)  
+- Marcar misiones como completadas  
+- Eliminar misiones  
+- Barra de progreso basada en misiones completadas  
+- Contador de prioridades  
+- Estadísticas por casa  
+- Filtrar misiones por casa  
+- Búsqueda de misiones  
+- Modo oscuro / modo claro  
+- Guardado automático en LocalStorage  
 
 ---
 
@@ -47,45 +47,45 @@ Aplicación desplegada en Vercel:
 
 La interfaz utiliza **Tailwind CSS** para mantener coherencia visual mediante:
 
-- Escala de espaciado
-- Sistema de colores
-- Componentes reutilizables
+- Escala de espaciado consistente  
+- Sistema de colores  
+- Componentes reutilizables  
 - Clases de utilidad
 
 También incluye:
 
-- Hover en tarjetas
-- Transiciones suaves
-- Estados focus accesibles
-- Dark mode mediante clase `dark`
+- Efectos *hover* en tarjetas  
+- Transiciones suaves  
+- Estados *focus* accesibles  
+- Dark mode mediante la clase `dark`
 
 ---
 
 ## 🌙 Modo oscuro
 
-El modo oscuro se activa mediante un botón que alterna la clase:
+El modo oscuro se activa mediante un botón que alterna la clase `dark`.
 
-document.documentElement.classList.toggle("dark")
 
-# Documentación asistida por IA
 
-Durante esta fase del proyecto se utilizó inteligencia artificial para generar una primera versión mejorada de la documentación del proyecto.
+Durante el desarrollo del proyecto se utilizó **inteligencia artificial** para generar una primera versión de la documentación y sugerir mejoras en el código.
 
-Posteriormente la documentación fue revisada manualmente para corregir posibles errores, mejorar la claridad del texto y adaptarla a la estructura real del proyecto.
+Posteriormente, la documentación fue **revisada manualmente**, corrigiendo posibles errores y adaptándola al funcionamiento real del proyecto.
 
-El objetivo de esta fase fue mejorar la calidad de la documentación y facilitar que otros desarrolladores puedan entender el funcionamiento del proyecto.
+El objetivo fue mejorar la calidad del código y facilitar que otros desarrolladores puedan entender el proyecto.
 
 ---
 
-# Documentación de funciones principales
+# 📚 Documentación de funciones principales
 
 A continuación se describen algunas de las funciones más importantes del archivo `app.js`.
 
-### addTask()
+---
 
-Esta función se encarga de crear una nueva tarea en el sistema.
+## addTask()
 
-Funcionamiento:
+Esta función se encarga de crear una nueva misión en el sistema.
+
+### Pasos que realiza
 
 1. Obtiene el texto de la misión desde el campo de entrada.
 2. Obtiene la casa seleccionada.
@@ -95,73 +95,65 @@ Funcionamiento:
 6. Guarda los datos en `localStorage`.
 7. Vuelve a renderizar la lista de tareas.
 
-Esta función es el punto principal de entrada para crear nuevas misiones dentro del tablero.
+---
+
+## toggleTask(id)
+
+Permite marcar una misión como **completada o pendiente**.
+
+Recibe el identificador de la tarea y cambia el valor de la propiedad `completed`.
+
+Después:
+
+- Guarda los cambios
+- Actualiza la interfaz
+
+Esto permite completar misiones simplemente haciendo clic sobre la tarjeta.
 
 ---
 
-### toggleTask(id)
-
-Esta función permite marcar una tarea como completada o pendiente.
-
-Recibe como parámetro el identificador de la tarea y cambia el valor de la propiedad `completed`.
-
-Después de modificar el estado de la tarea:
-
-- guarda los cambios
-- actualiza la interfaz
-
-Esto permite que el usuario pueda completar misiones simplemente haciendo clic sobre la tarjeta.
-
----
-
-### deleteTask(id)
+## deleteTask(id)
 
 Esta función elimina una tarea del sistema.
 
-El proceso consiste en:
+### Proceso
 
-1. Buscar la tarea en el array `tasks`.
-2. Filtrar el array para eliminar esa tarea.
-3. Guardar los cambios en `localStorage`.
-4. Actualizar la interfaz.
-
-Esto permite mantener la lista de tareas limpia y eliminar misiones que ya no sean necesarias.
+1. Busca la tarea en el array `tasks`.
+2. Filtra el array para eliminarla.
+3. Guarda los cambios en `localStorage`.
+4. Actualiza la interfaz.
 
 ---
 
-### editTask(id)
+## editTask(id)
 
-Esta función permite modificar el nombre de una misión existente.
+Permite modificar el nombre de una misión existente.
 
-El sistema muestra un `prompt` donde el usuario puede introducir el nuevo nombre de la tarea.
+El sistema muestra un `prompt` donde el usuario introduce el nuevo nombre.
 
-Una vez modificado el texto:
+Después:
 
-- se guarda la tarea
-- se actualiza la interfaz
+- Se guarda la tarea actualizada
+- Se actualiza la interfaz
 
 ---
 
-### updateStats()
+## updateStats()
 
-Esta función actualiza las estadísticas del tablero.
+Actualiza las estadísticas del tablero.
 
-Se encarga de calcular:
+Calcula:
 
-- número de tareas activas
-- número de tareas completadas
-- porcentaje de progreso del reino
-- contadores de prioridad
+- Número de tareas activas
+- Número de tareas completadas
+- Porcentaje de progreso del reino
+- Contadores de prioridad
 
 También llama a la función `updateHouseStats()` para actualizar el panel **Estado del Reino**.
 
 ---
 
-# Ejemplos de uso del proyecto
-
-A continuación se muestran algunos ejemplos de cómo utilizar la aplicación TaskFlow.
-
----
+# 🧪 Ejemplos de uso
 
 ## Crear una nueva misión
 
@@ -178,7 +170,7 @@ La nueva misión aparecerá automáticamente en el tablero.
 
 Para marcar una misión como completada:
 
-1. Hacer clic sobre la tarjeta de la misión.
+Haz clic sobre la tarjeta de la misión.
 
 La tarjeta cambiará de estilo indicando que la misión ha sido completada y se actualizarán las estadísticas.
 
@@ -186,7 +178,7 @@ La tarjeta cambiará de estilo indicando que la misión ha sido completada y se 
 
 ## Filtrar misiones por casa
 
-En el panel lateral se puede seleccionar una casa específica para mostrar únicamente las tareas asociadas a esa casa.
+En el panel lateral puedes seleccionar una casa específica para mostrar únicamente las tareas asociadas a esa casa.
 
 Esto permite visualizar rápidamente las misiones de cada casa del reino.
 
@@ -194,18 +186,17 @@ Esto permite visualizar rápidamente las misiones de cada casa del reino.
 
 ## Reordenar misiones
 
-Las tareas pueden reorganizarse arrastrando una tarjeta y soltándola sobre otra.
+Las tareas pueden reorganizarse **arrastrando una tarjeta sobre otra**.
 
 Esta funcionalidad permite gestionar el orden de las misiones de forma visual.
 
 ---
 
-# Revisión manual de la documentación
+# 🔍 Revisión manual de la documentación
 
-La documentación generada con ayuda de inteligencia artificial fue revisada manualmente para:
+La documentación generada con ayuda de IA fue revisada manualmente para:
 
-- corregir posibles errores
-- mejorar la claridad del texto
-- adaptar la documentación al funcionamiento real del proyecto
+- Corregir posibles errores
+- Mejorar la claridad del texto
 
-Esto garantiza que la documentación final sea precisa y útil para otros desarrolladores.
+Esto garantiza que la documentación final sea **precisa, clara y útil para otros desarrolladores**.
