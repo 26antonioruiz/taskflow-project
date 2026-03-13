@@ -3,240 +3,221 @@
 
 <head>
 
-<meta charset="UTF-8">
-<title>Consejo Real de Poniente</title>
+	<meta charset="UTF-8">
+	<title>Consejo Real de Poniente</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
 
-<script>
-tailwind.config={
-darkMode:'class'
-}
-</script>
+	<script>
+		tailwind.config = {
+			darkMode: 'class'
+		}
+	</script>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
+	<style>
 
-body{
-font-family:'Cinzel',serif;
-}
+		body {
+			font-family: 'Cinzel', serif;
+		}
 
-/* TARJETAS */
+		/* TARJETAS */
 
-.task{
-transition:.25s;
-cursor:pointer;
-}
+		.task {
+			transition: .25s;
+			cursor: pointer;
+		}
 
-.task:hover{
-transform:scale(1.02);
-box-shadow:0 0 20px rgba(255,215,0,.35);
-}
+		.task:hover {
+			transform: scale(1.02);
+			box-shadow: 0 0 20px rgba(255, 215, 0, .35);
+		}
 
-/* MISIÓN COMPLETADA */
+		/* MISIÓN COMPLETADA */
 
-.completed{
-opacity:.4;
-text-decoration:line-through;
-filter:grayscale(100%);
-}
+		.completed {
+			opacity: .4;
+			text-decoration: line-through;
+			filter: grayscale(100%);
+		}
 
-/* HOVER CASAS */
+		/* CASAS */
 
-.house{
-transition:.2s;
-cursor:pointer;
-}
+		.house {
+			transition: .2s;
+			cursor: pointer;
+		}
 
-.house:hover{
-color:#facc15;
-transform:translateX(4px);
-}
+		.house:hover {
+			color: #facc15;
+			transform: translateX(4px);
+		}
 
-/* CASA SELECCIONADA */
+		.house-active {
+			color: #facc15;
+			font-weight: bold;
+		}
 
-.house-active{
-color:#facc15;
-font-weight:bold;
-}
-
-</style>
+	</style>
 
 </head>
 
 <body class="bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
-<!-- HEADER -->
 
-<header
-class="relative h-[300px] border-b border-yellow-600 bg-cover bg-center"
-style="background-image:url('img/medieval.jpg')"
->
+	<!-- HEADER -->
 
-<div class="absolute inset-0 bg-black/60"></div>
+	<header
+		class="relative h-[300px] border-b border-yellow-600 bg-cover bg-center"
+		style="background-image:url('img/medieval.jpg')"
+	>
 
-<div class="relative text-center pt-24">
+		<div class="absolute inset-0 bg-black/60"></div>
 
-<h1 class="text-4xl font-bold text-yellow-500">
-Consejo Real de Poniente
-</h1>
+		<div class="relative text-center pt-24">
 
-<p class="text-gray-300">
-Panel estratégico del Trono de Hierro
-</p>
+			<h1 class="text-4xl font-bold text-yellow-500">
+				Consejo Real de Poniente
+			</h1>
 
-</div>
+			<p class="text-gray-300">
+				Panel estratégico del Trono de Hierro
+			</p>
 
-<button
-id="themeBtn"
-class="absolute right-6 top-6 bg-gray-800 text-yellow-400 px-3 py-2 rounded"
->
-🌙
-</button>
+		</div>
 
-</header>
+		<button
+			id="themeBtn"
+			class="absolute right-6 top-6 bg-gray-800 text-yellow-400 px-3 py-2 rounded"
+		>
+			🌙
+		</button>
 
-<div class="grid grid-cols-12 gap-6 p-6">
+	</header>
 
-<!-- SIDEBAR -->
 
-<aside class="col-span-2 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-4">
+	<div class="grid grid-cols-12 gap-6 p-6">
 
-<h3 class="text-yellow-500 font-bold mb-4">
-Grandes Casas
-</h3>
+		<!-- SIDEBAR -->
 
-<ul class="space-y-4">
+		<aside class="col-span-2 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-4">
 
-<li onclick="filterHouse('all',this)" class="house house-active">
-Todas
-</li>
+			<h3 class="text-yellow-500 font-bold mb-4">
+				Grandes Casas
+			</h3>
 
-<li onclick="filterHouse('stark',this)" class="house">
-🐺 Stark
-</li>
+			<ul class="space-y-4">
 
-<li onclick="filterHouse('lannister',this)" class="house">
-🦁 Lannister
-</li>
+				<li onclick="filterHouse('all',this)" class="house house-active">Todas</li>
+				<li onclick="filterHouse('stark',this)" class="house">🐺 Stark</li>
+				<li onclick="filterHouse('lannister',this)" class="house">🦁 Lannister</li>
+				<li onclick="filterHouse('targaryen',this)" class="house">🐉 Targaryen</li>
+				<li onclick="filterHouse('baratheon',this)" class="house">🦌 Baratheon</li>
 
-<li onclick="filterHouse('targaryen',this)" class="house">
-🐉 Targaryen
-</li>
+			</ul>
 
-<li onclick="filterHouse('baratheon',this)" class="house">
-🦌 Baratheon
-</li>
+		</aside>
 
-</ul>
 
-</aside>
+		<!-- PANEL CENTRAL -->
 
-<!-- PANEL CENTRAL -->
+		<main class="col-span-7 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
 
-<main class="col-span-7 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
+			<div class="flex justify-between mb-4">
 
-<div class="flex justify-between mb-4">
+				<h2 class="text-xl font-bold">
+					Amenazas del Reino
+				</h2>
 
-<h2 class="text-xl font-bold">
-Amenazas del Reino
-</h2>
+				<p id="status">
+					0 activas · 0 completadas
+				</p>
 
-<p id="status">
-0 activas · 0 completadas
-</p>
+			</div>
 
-</div>
+			<div class="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded mb-6">
 
-<div class="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded mb-6">
+				<div
+					id="progress"
+					class="h-3 bg-yellow-500 rounded transition-all"
+				></div>
 
-<div
-id="progress"
-class="h-3 bg-yellow-500 rounded transition-all"
-></div>
+			</div>
 
-</div>
 
-<!-- FORMULARIO -->
+			<!-- FORMULARIO -->
 
-<div class="flex gap-3 mb-4">
+			<div class="flex gap-3 mb-4">
 
-<input
-id="taskInput"
-placeholder="Nueva misión..."
-class="flex-1 px-3 py-2 border rounded dark:bg-gray-800"
->
+				<input
+					id="taskInput"
+					placeholder="Nueva misión..."
+					class="flex-1 px-3 py-2 border rounded dark:bg-gray-800"
+				>
 
-<select
-id="houseSelect"
-class="px-2 py-2 border rounded dark:bg-gray-800"
->
+				<select id="houseSelect" class="px-2 py-2 border rounded dark:bg-gray-800">
+					<option value="stark">Stark</option>
+					<option value="lannister">Lannister</option>
+					<option value="targaryen">Targaryen</option>
+					<option value="baratheon">Baratheon</option>
+				</select>
 
-<option value="stark">Stark</option>
-<option value="lannister">Lannister</option>
-<option value="targaryen">Targaryen</option>
-<option value="baratheon">Baratheon</option>
+				<select id="prioritySelect" class="px-2 py-2 border rounded dark:bg-gray-800">
+					<option value="alta">Alta</option>
+					<option value="media">Media</option>
+					<option value="baja">Baja</option>
+				</select>
 
-</select>
+				<button
+					onclick="addTask()"
+					class="bg-yellow-600 text-black px-4 rounded"
+				>
+					Añadir
+				</button>
 
-<select
-id="prioritySelect"
-class="px-2 py-2 border rounded dark:bg-gray-800"
->
+			</div>
 
-<option value="alta">Alta</option>
-<option value="media">Media</option>
-<option value="baja">Baja</option>
 
-</select>
+			<input
+				id="search"
+				placeholder="Buscar misión..."
+				class="w-full px-3 py-2 border rounded mb-6 dark:bg-gray-800"
+			>
 
-<button
-onclick="addTask()"
-class="bg-yellow-600 text-black px-4 rounded"
->
-Añadir
-</button>
+			<div id="tasks" class="space-y-6"></div>
 
-</div>
+		</main>
 
-<input
-id="search"
-placeholder="Buscar misión..."
-class="w-full px-3 py-2 border rounded mb-6 dark:bg-gray-800"
->
 
-<div id="tasks" class="space-y-6"></div>
+		<!-- PANEL DERECHO -->
 
-</main>
+		<aside class="col-span-3 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
 
-<!-- PANEL DERECHO -->
+			<h3 class="text-yellow-500 font-bold mb-4">
+				Estado del Reino
+			</h3>
 
-<aside class="col-span-3 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
+			<ul id="houseStats" class="mb-6"></ul>
 
-<h3 class="text-yellow-500 font-bold mb-4">
-Estado del Reino
-</h3>
+			<h3 class="text-yellow-500 font-bold mb-4">
+				Prioridades
+			</h3>
 
-<ul id="houseStats" class="mb-6"></ul>
+			<ul class="space-y-2">
 
-<h3 class="text-yellow-500 font-bold mb-4">
-Prioridades
-</h3>
+				<li>🔴 Alta <span id="altaCount">0</span></li>
+				<li>🟠 Media <span id="mediaCount">0</span></li>
+				<li>🟢 Baja <span id="bajaCount">0</span></li>
 
-<ul class="space-y-2">
+			</ul>
 
-<li>🔴 Alta <span id="altaCount">0</span></li>
-<li>🟠 Media <span id="mediaCount">0</span></li>
-<li>🟢 Baja <span id="bajaCount">0</span></li>
+		</aside>
 
-</ul>
+	</div>
 
-</aside>
 
-</div>
-
-<script src="app.js"></script>
+	<script src="app.js"></script>
 
 </body>
 </html>
