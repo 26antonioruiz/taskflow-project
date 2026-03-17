@@ -2,222 +2,162 @@
 <html lang="es">
 
 <head>
-
 	<meta charset="UTF-8">
 	<title>Consejo Real de Poniente</title>
 
 	<script src="https://cdn.tailwindcss.com"></script>
-
 	<script>
-		tailwind.config = {
-			darkMode: 'class'
-		}
+		tailwind.config = { darkMode: "class" }
 	</script>
 
 	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 
 	<style>
+		body { font-family: 'Cinzel', serif; }
 
-		body {
-			font-family: 'Cinzel', serif;
+		.task { transition: .25s; cursor: pointer; }
+		.task:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,.35); }
+
+		.completed { opacity: .5; text-decoration: line-through; filter: grayscale(100%); }
+
+		.glow { animation: glow .6s ease; }
+		@keyframes glow {
+			0%{box-shadow:0 0 0 gold}
+			50%{box-shadow:0 0 25px gold}
+			100%{box-shadow:0 0 0 gold}
 		}
 
-		/* TARJETAS */
-
-		.task {
-			transition: .25s;
+		.menu-item {
 			cursor: pointer;
-		}
-
-		.task:hover {
-			transform: scale(1.02);
-			box-shadow: 0 0 20px rgba(255, 215, 0, .35);
-		}
-
-		/* MISIÓN COMPLETADA */
-
-		.completed {
-			opacity: .4;
-			text-decoration: line-through;
-			filter: grayscale(100%);
-		}
-
-		/* CASAS */
-
-		.house {
+			padding: 6px 8px;
+			border-radius: 6px;
+			display: flex;
+			justify-content: space-between;
 			transition: .2s;
-			cursor: pointer;
 		}
 
-		.house:hover {
+		.menu-item:hover {
 			color: #facc15;
-			transform: translateX(4px);
+			transform: translateX(6px);
+			text-shadow: 0 0 10px #facc15;
+			background: rgba(250,204,21,.08);
 		}
 
-		.house-active {
+		.menu-active {
 			color: #facc15;
 			font-weight: bold;
+			text-shadow: 0 0 10px #facc15;
 		}
-
 	</style>
-
 </head>
 
 <body class="bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
+<header class="relative h-[300px] border-b border-yellow-600 bg-cover bg-center"
+style="background-image:url('img/medieval.jpg')">
 
-	<!-- HEADER -->
+	<div class="absolute inset-0 bg-black/60"></div>
 
-	<header
-		class="relative h-[300px] border-b border-yellow-600 bg-cover bg-center"
-		style="background-image:url('img/medieval.jpg')"
-	>
-
-		<div class="absolute inset-0 bg-black/60"></div>
-
-		<div class="relative text-center pt-24">
-
-			<h1 class="text-4xl font-bold text-yellow-500">
-				Consejo Real de Poniente
-			</h1>
-
-			<p class="text-gray-300">
-				Panel estratégico del Trono de Hierro
-			</p>
-
-		</div>
-
-		<button
-			id="themeBtn"
-			class="absolute right-6 top-6 bg-gray-800 text-yellow-400 px-3 py-2 rounded"
-		>
-			🌙
-		</button>
-
-	</header>
-
-
-	<div class="grid grid-cols-12 gap-6 p-6">
-
-		<!-- SIDEBAR -->
-
-		<aside class="col-span-2 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-4">
-
-			<h3 class="text-yellow-500 font-bold mb-4">
-				Grandes Casas
-			</h3>
-
-			<ul class="space-y-4">
-
-				<li onclick="filterHouse('all',this)" class="house house-active">Todas</li>
-				<li onclick="filterHouse('stark',this)" class="house">🐺 Stark</li>
-				<li onclick="filterHouse('lannister',this)" class="house">🦁 Lannister</li>
-				<li onclick="filterHouse('targaryen',this)" class="house">🐉 Targaryen</li>
-				<li onclick="filterHouse('baratheon',this)" class="house">🦌 Baratheon</li>
-
-			</ul>
-
-		</aside>
-
-
-		<!-- PANEL CENTRAL -->
-
-		<main class="col-span-7 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
-
-			<div class="flex justify-between mb-4">
-
-				<h2 class="text-xl font-bold">
-					Amenazas del Reino
-				</h2>
-
-				<p id="status">
-					0 activas · 0 completadas
-				</p>
-
-			</div>
-
-			<div class="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded mb-6">
-
-				<div
-					id="progress"
-					class="h-3 bg-yellow-500 rounded transition-all"
-				></div>
-
-			</div>
-
-
-			<!-- FORMULARIO -->
-
-			<div class="flex gap-3 mb-4">
-
-				<input
-					id="taskInput"
-					placeholder="Nueva misión..."
-					class="flex-1 px-3 py-2 border rounded dark:bg-gray-800"
-				>
-
-				<select id="houseSelect" class="px-2 py-2 border rounded dark:bg-gray-800">
-					<option value="stark">Stark</option>
-					<option value="lannister">Lannister</option>
-					<option value="targaryen">Targaryen</option>
-					<option value="baratheon">Baratheon</option>
-				</select>
-
-				<select id="prioritySelect" class="px-2 py-2 border rounded dark:bg-gray-800">
-					<option value="alta">Alta</option>
-					<option value="media">Media</option>
-					<option value="baja">Baja</option>
-				</select>
-
-				<button
-					onclick="addTask()"
-					class="bg-yellow-600 text-black px-4 rounded"
-				>
-					Añadir
-				</button>
-
-			</div>
-
-
-			<input
-				id="search"
-				placeholder="Buscar misión..."
-				class="w-full px-3 py-2 border rounded mb-6 dark:bg-gray-800"
-			>
-
-			<div id="tasks" class="space-y-6"></div>
-
-		</main>
-
-
-		<!-- PANEL DERECHO -->
-
-		<aside class="col-span-3 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
-
-			<h3 class="text-yellow-500 font-bold mb-4">
-				Estado del Reino
-			</h3>
-
-			<ul id="houseStats" class="mb-6"></ul>
-
-			<h3 class="text-yellow-500 font-bold mb-4">
-				Prioridades
-			</h3>
-
-			<ul class="space-y-2">
-
-				<li>🔴 Alta <span id="altaCount">0</span></li>
-				<li>🟠 Media <span id="mediaCount">0</span></li>
-				<li>🟢 Baja <span id="bajaCount">0</span></li>
-
-			</ul>
-
-		</aside>
-
+	<div class="relative text-center pt-24">
+		<h1 class="text-4xl font-bold text-yellow-500">Consejo Real de Poniente</h1>
+		<p class="text-gray-300">Panel estratégico del Trono de Hierro</p>
 	</div>
 
+	<button id="themeBtn"
+	class="absolute right-6 top-6 bg-gray-800 text-yellow-400 px-3 py-2 rounded">
+	🌙
+	</button>
 
-	<script src="app.js"></script>
+</header>
+
+<div class="grid grid-cols-12 gap-6 p-6">
+
+<!-- SIDEBAR -->
+<aside class="col-span-3 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6 space-y-8">
+
+<!-- CASAS -->
+<div>
+	<h3 class="text-yellow-500 font-bold mb-4">Grandes Casas</h3>
+	<ul class="space-y-2">
+		<li onclick="filterHouse('all',this)" class="menu-item menu-active">Todas</li>
+		<li onclick="filterHouse('stark',this)" class="menu-item"><span>🐺 Stark</span><span id="starkCount"></span></li>
+		<li onclick="filterHouse('lannister',this)" class="menu-item"><span>🦁 Lannister</span><span id="lannisterCount"></span></li>
+		<li onclick="filterHouse('targaryen',this)" class="menu-item"><span>🐉 Targaryen</span><span id="targaryenCount"></span></li>
+		<li onclick="filterHouse('baratheon',this)" class="menu-item"><span>🦌 Baratheon</span><span id="baratheonCount"></span></li>
+	</ul>
+</div>
+
+<!-- PRIORIDADES -->
+<div>
+	<h3 class="text-yellow-500 font-bold mb-4">Prioridades</h3>
+	<ul class="space-y-2">
+		<li onclick="filterPriority('all',this)" class="menu-item menu-active priority">Todas</li>
+		<li onclick="filterPriority('alta',this)" class="menu-item priority"><span>🔴 Alta</span><span id="altaCount"></span></li>
+		<li onclick="filterPriority('media',this)" class="menu-item priority"><span>🟠 Media</span><span id="mediaCount"></span></li>
+		<li onclick="filterPriority('baja',this)" class="menu-item priority"><span>🟢 Baja</span><span id="bajaCount"></span></li>
+	</ul>
+</div>
+
+<!-- ESTADO -->
+<div>
+	<h3 class="text-yellow-500 font-bold mb-4">Estado</h3>
+	<ul class="space-y-2">
+		<li onclick="filterStatus('all',this)" class="menu-item menu-active status">Todas</li>
+		<li onclick="filterStatus('active',this)" class="menu-item status">⚔️ Activas</li>
+		<li onclick="filterStatus('completed',this)" class="menu-item status">🏁 Completadas</li>
+	</ul>
+</div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="col-span-9 bg-white dark:bg-slate-800 border border-yellow-600 rounded-xl p-6">
+
+<div class="flex justify-between mb-4">
+	<h2 class="text-xl font-bold">Amenazas del Reino</h2>
+	<p id="status"></p>
+</div>
+
+<div class="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded mb-6">
+	<div id="progress" class="h-3 bg-yellow-500 rounded"></div>
+</div>
+
+<div class="flex gap-3 mb-4">
+
+	<input id="taskInput" placeholder="Nueva misión..." class="flex-1 px-3 py-2 border rounded dark:bg-gray-800">
+
+	<select id="houseSelect" class="px-2 py-2 border rounded dark:bg-gray-800">
+		<option value="stark">Stark</option>
+		<option value="lannister">Lannister</option>
+		<option value="targaryen">Targaryen</option>
+		<option value="baratheon">Baratheon</option>
+	</select>
+
+	<select id="prioritySelect" class="px-2 py-2 border rounded dark:bg-gray-800">
+		<option value="alta">Alta</option>
+		<option value="media">Media</option>
+		<option value="baja">Baja</option>
+	</select>
+
+	<button onclick="addTask()" class="bg-yellow-600 px-4 rounded">Añadir</button>
+	<button onclick="toggleBoard()" class="bg-gray-700 px-4 rounded">Kanban</button>
+
+</div>
+
+<input id="search" placeholder="Buscar misión..." class="w-full px-3 py-2 border rounded mb-6 dark:bg-gray-800">
+
+<h3 class="text-yellow-500 font-bold mb-2">Activas</h3>
+<div id="tasks" class="space-y-6 mb-10"></div>
+
+<h3 class="text-gray-400 font-bold mb-2">Completadas</h3>
+<div id="completedTasks" class="space-y-6 opacity-70"></div>
+
+</main>
+</div>
+
+<audio id="completeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-level-completed-2059.mp3"></audio>
+
+<script src="app.js"></script>
 
 </body>
 </html>
