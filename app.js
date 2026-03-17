@@ -7,7 +7,12 @@ const houseLogos = {
 	baratheon:"img/baratheon.png"
 };
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = JSON.parse(localStorage.getItem("tasks"))
+
+if (!tasks || tasks.length === 0) {
+	tasks = defaultTasks
+	localStorage.setItem("tasks", JSON.stringify(tasks))
+};
 let filterHouseValue = "all";
 let priorityFilter = "all";
 let statusFilter = "all";
