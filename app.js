@@ -97,8 +97,6 @@ DOM.list.addEventListener("drop", (e) => {
   const [moved] = tasks.splice(fromIndex, 1);
   tasks.splice(toIndex, 0, moved);
 
-    tasks.splice(toIndex, 0, moved);
-
   renderView();
 });
 
@@ -382,8 +380,6 @@ dragged = t.id;
 	el.addEventListener("dragover", (e) => e.preventDefault());
 
 
-		renderView();
-
 	if (t.completed) el.classList.add("completed");
 
 	return el;
@@ -449,7 +445,9 @@ function renderBoard(){
 
 		zone.addEventListener("dragover", e=>e.preventDefault());
 
-
+		zone.addEventListener("drop", ()=>{
+			if(!dragged || dragged.completed) return;
+			dragged.priority = p;
 			
 			renderView();
 		});
@@ -460,7 +458,7 @@ function renderBoard(){
 
 		col.appendChild(zone);
 		container.appendChild(col);
-	};
+	});
 
 	filtered
 	.filter(t=>t.completed)
@@ -469,7 +467,7 @@ function renderBoard(){
 	DOM.list.appendChild(container);
 
 	updateStats();
-
+}
 
 /* ================= STATS ================= */
 
