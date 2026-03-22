@@ -83,7 +83,7 @@ DOM.list.addEventListener("dragover", (e) => {
 
 DOM.list.addEventListener("drop", (e) => {
   e.preventDefault();
-
+  e.stopPropagation();
   const target = e.target.closest(".task");
   if (!target) return;
 
