@@ -96,6 +96,8 @@ DOM.list.addEventListener("drop", (e) => {
 
   const [moved] = tasks.splice(fromIndex, 1);
   tasks.splice(toIndex, 0, moved);
+  
+	dragged = null;
 
   renderView();
 });
@@ -228,9 +230,8 @@ async function loadTasks(retries = 3) {
 			setTimeout(() => loadTasks(retries - 1), 500);
 		} else {
 			tasks = INITIAL_TASKS.map((t) => ({ ...t }));
-			setStatusLine(
-				"Sin servidor: en la raíz del proyecto ejecuta «npm run dev» (o doble clic en iniciar-servidor.bat) y abre http://localhost:3000"
-			);
+			
+			;
 			setUiReady(true);
 			renderView();
 		}
