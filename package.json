@@ -2,6 +2,8 @@
   "name": "taskflow-project",
   "version": "1.0.0",
   "scripts": {
-    "build": "echo build done"
+    "build": "echo build done",
+    "dev": "npm run dev --prefix server",
+    "start": "npm run dev --prefix server"
   }
 }

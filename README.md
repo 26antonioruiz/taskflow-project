@@ -1,9 +1,10 @@
 # ⚔ Consejo Real de Poniente – TaskFlow
 
-Aplicación web de gestión de tareas inspirada en *Game of Thrones*, desarrollada como proyecto de práctica de **frontend**.  
-Permite crear, organizar y completar misiones asignadas a las Grandes Casas de Poniente con distintos niveles de prioridad.
+Aplicación fullstack de gestión de tareas inspirada en *Game of Thrones*.
 
-La interfaz está diseñada con **Tailwind CSS** e incluye **modo oscuro**, sistema de prioridades y almacenamiento local.
+Permite crear, organizar y gestionar misiones asignadas a las Grandes Casas de Poniente con distintos niveles de prioridad.
+
+El proyecto ha evolucionado desde un frontend con LocalStorage a una arquitectura cliente-servidor real con backend en Node.js.
 
 ---
 
@@ -17,47 +18,188 @@ Aplicación desplegada en Vercel:
 
 ## 🧰 Tecnologías utilizadas
 
-- HTML5  
-- JavaScript (Vanilla JS)  
-- Tailwind CSS  
-- LocalStorage  
-- Git & GitHub  
-- Vercel (deploy)
+### 🎨 Frontend
+
+* HTML5
+* JavaScript (Vanilla JS)
+* Tailwind CSS
+
+### ⚙️ Backend
+
+* Node.js
+* Express.js
+* dotenv
+* cors
+
+### 🛠 Herramientas
+
+* Thunder Client / Postman
+* Git & GitHub
+* Vercel (deploy)
+
+---
+
+## 🧠 Arquitectura
+
+El backend sigue una arquitectura por capas (Layered Architecture):
+
+```
+routes → controllers → services
+```
+
+### 🔹 Routes
+
+Definen los endpoints HTTP y conectan con los controladores.
+
+### 🔹 Controllers
+
+Gestionan la petición y respuesta HTTP:
+
+* Validan datos de entrada
+* Llaman a los servicios
+* Devuelven respuestas al cliente
+
+### 🔹 Services
+
+Contienen la lógica de negocio:
+
+* Creación de tareas
+* Eliminación
+* Gestión de datos
+
+Esta capa es independiente de Express, lo que facilita testing y escalabilidad.
+
+---
+
+## 🌐 API REST
+
+Base URL:
+
+```
+http://localhost:3000/api/v1/tasks
+```
+
+### 📥 GET /tasks
+
+Obtiene todas las tareas
+
+---
+
+### 📤 POST /tasks
+
+Crea una nueva tarea
+
+```json
+{
+  "text": "Nueva misión",
+  "house": "stark",
+  "priority": "alta"
+}
+```
+
+Respuesta:
+
+```json
+{
+  "id": 123456,
+  "text": "Nueva misión",
+  "house": "stark",
+  "priority": "alta",
+  "completed": false
+}
+```
+
+---
+
+### ❌ DELETE /tasks/:id
+
+Elimina una tarea
+
+Respuesta:
+
+* 204 No Content
+
+---
+
+## ⚙️ Variables de entorno
+
+Crear archivo `.env` en `/server`:
+
+```
+PORT=3000
+```
+
+---
+
+## ▶️ Ejecución del proyecto
+
+### 🔹 Backend
+
+```bash
+cd server
+npm install
+npm run dev
+```
+
+Servidor en:
+
+```
+http://localhost:3000
+```
+
+---
+
+### 🔹 Frontend
+
+Abrir `index.html` con Live Server
+
+---
+
+## ⚠️ Manejo de errores
+
+El backend implementa manejo global de errores:
+
+* 400 → datos inválidos
+* 404 → recurso no encontrado
+* 500 → error interno del servidor
+
+Ejemplos:
+
+* POST sin texto → 400
+* DELETE con id inexistente → 404
 
 ---
 
 ## 🎯 Funcionalidades
 
-- Crear nuevas misiones  
-- Asignar una misión a una casa  
-- Definir prioridad de misión (Alta, Media, Baja)  
-- Marcar misiones como completadas  
-- Eliminar misiones  
-- Barra de progreso basada en misiones completadas  
-- Contador de prioridades  
-- Estadísticas por casa  
-- Filtrar misiones por casa  
-- Búsqueda de misiones  
-- Modo oscuro / modo claro  
-- Guardado automático en LocalStorage  
+* Crear nuevas misiones
+* Eliminar misiones
+* Filtrar por casa
+* Filtrar por prioridad
+* Filtrar por estado
+* Búsqueda de misiones
+* Drag & Drop
+* Modo Kanban
+* Barra de progreso
+* Estadísticas por casa
+* Persistencia en backend
 
 ---
 
 ## 🎨 Sistema de diseño
 
-La interfaz utiliza **Tailwind CSS** para mantener coherencia visual mediante:
+La interfaz utiliza Tailwind CSS:
 
-- Escala de espaciado consistente  
-- Sistema de colores  
-- Componentes reutilizables  
-- Clases de utilidad
+* Sistema de colores consistente
+* Componentes reutilizables
+* Diseño responsive
+* Dark mode mediante clase `dark`
 
-También incluye:
+Incluye:
 
-- Efectos *hover* en tarjetas  
-- Transiciones suaves  
-- Estados *focus* accesibles  
-- Dark mode mediante la clase `dark`
+* Animaciones hover
+* Transiciones suaves
+* Feedback visual
 
 ---
 
@@ -65,138 +207,69 @@ También incluye:
 
 El modo oscuro se activa mediante un botón que alterna la clase `dark`.
 
+---
 
+## 🔄 Cambio de arquitectura
 
-Durante el desarrollo del proyecto se utilizó **inteligencia artificial** para generar una primera versión de la documentación y sugerir mejoras en el código.
+Inicialmente el proyecto utilizaba:
 
-Posteriormente, la documentación fue **revisada manualmente**, corrigiendo posibles errores y adaptándola al funcionamiento real del proyecto.
+```
+LocalStorage
+```
 
-El objetivo fue mejorar la calidad del código y facilitar que otros desarrolladores puedan entender el proyecto.
+Ahora utiliza:
+
+```
+Frontend → API → Backend
+```
+
+Esto permite:
+
+* Persistencia real
+* Escalabilidad
+* Separación de responsabilidades
 
 ---
 
-# 📚 Documentación de funciones principales
+## 🧪 Testing
 
-A continuación se describen algunas de las funciones más importantes del archivo `app.js`.
+La API ha sido probada con:
 
----
+* Thunder Client
+* Postman
 
-## addTask()
+Incluyendo pruebas de error:
 
-Esta función se encarga de crear una nueva misión en el sistema.
-
-### Pasos que realiza
-
-1. Obtiene el texto de la misión desde el campo de entrada.
-2. Obtiene la casa seleccionada.
-3. Obtiene el nivel de prioridad.
-4. Crea un nuevo objeto de tarea.
-5. Guarda la tarea en el array `tasks`.
-6. Guarda los datos en `localStorage`.
-7. Vuelve a renderizar la lista de tareas.
+* Datos inválidos
+* Recursos inexistentes
 
 ---
 
-## toggleTask(id)
+## 📚 Documentación adicional
 
-Permite marcar una misión como **completada o pendiente**.
+Ver:
 
-Recibe el identificador de la tarea y cambia el valor de la propiedad `completed`.
+```
+docs/backend-api.md
+```
 
-Después:
+Incluye información sobre:
 
-- Guarda los cambios
-- Actualiza la interfaz
-
-Esto permite completar misiones simplemente haciendo clic sobre la tarjeta.
-
----
-
-## deleteTask(id)
-
-Esta función elimina una tarea del sistema.
-
-### Proceso
-
-1. Busca la tarea en el array `tasks`.
-2. Filtra el array para eliminarla.
-3. Guarda los cambios en `localStorage`.
-4. Actualiza la interfaz.
+* Axios
+* Postman
+* Swagger
+* Sentry
 
 ---
 
-## editTask(id)
+## 🤖 Uso de Inteligencia Artificial
 
-Permite modificar el nombre de una misión existente.
+Se utilizó IA para:
 
-El sistema muestra un `prompt` donde el usuario introduce el nuevo nombre.
+* Generación inicial de código
+* Mejora de estructura
+* Refactorización
 
-Después:
-
-- Se guarda la tarea actualizada
-- Se actualiza la interfaz
-
----
-
-## updateStats()
-
-Actualiza las estadísticas del tablero.
-
-Calcula:
-
-- Número de tareas activas
-- Número de tareas completadas
-- Porcentaje de progreso del reino
-- Contadores de prioridad
-
-También llama a la función `updateHouseStats()` para actualizar el panel **Estado del Reino**.
+La implementación final fue revisada manualmente.
 
 ---
-
-# 🧪 Ejemplos de uso
-
-## Crear una nueva misión
-
-1. Escribir el nombre de la misión en el campo **Nueva misión**.
-2. Seleccionar la casa correspondiente.
-3. Seleccionar la prioridad.
-4. Pulsar el botón **Añadir**.
-
-La nueva misión aparecerá automáticamente en el tablero.
-
----
-
-## Completar una misión
-
-Para marcar una misión como completada:
-
-Haz clic sobre la tarjeta de la misión.
-
-La tarjeta cambiará de estilo indicando que la misión ha sido completada y se actualizarán las estadísticas.
-
----
-
-## Filtrar misiones por casa
-
-En el panel lateral puedes seleccionar una casa específica para mostrar únicamente las tareas asociadas a esa casa.
-
-Esto permite visualizar rápidamente las misiones de cada casa del reino.
-
----
-
-## Reordenar misiones
-
-Las tareas pueden reorganizarse **arrastrando una tarjeta sobre otra**.
-
-Esta funcionalidad permite gestionar el orden de las misiones de forma visual.
-
----
-
-# 🔍 Revisión manual de la documentación
-
-La documentación generada con ayuda de IA fue revisada manualmente para:
-
-- Corregir posibles errores
-- Mejorar la claridad del texto
-
-Esto garantiza que la documentación final sea **precisa, clara y útil para otros desarrolladores**.
