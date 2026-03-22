@@ -76,7 +76,30 @@ const DOM = {
 	sound: document.getElementById("completeSound"),
 	addBtn: document.getElementById("addTaskBtn"),
 	kanbanBtn: document.getElementById("kanbanBtn")
-};
+	};
+DOM.list.addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
+
+DOM.list.addEventListener("drop", (e) => {
+  e.preventDefault();
+
+  const target = e.target.closest(".task");
+  if (!target) return;
+
+  const targetId = Number(target.dataset.id);
+
+  const fromIndex = tasks.findIndex(t => t.id === dragged);
+  const toIndex = tasks.findIndex(t => t.id === targetId);
+
+  if (fromIndex === -1 || toIndex === -1) return;
+
+  const [moved] = tasks.splice(fromIndex, 1);
+  tasks.splice(toIndex, 0, moved);
+
+  renderView();
+});
+
 
 function setStatusLine(text) {
 	if (DOM.status) DOM.status.textContent = text;
