@@ -97,6 +97,8 @@ DOM.list.addEventListener("drop", (e) => {
   const [moved] = tasks.splice(fromIndex, 1);
   tasks.splice(toIndex, 0, moved);
 
+    tasks.splice(toIndex, 0, moved);
+
   renderView();
 });
 
