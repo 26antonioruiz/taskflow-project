@@ -9,13 +9,11 @@ if ("scrollRestoration" in history) {
 	history.scrollRestoration = "manual";
 }
 
-/* Si la página recarga entera (p. ej. Live Server), guardamos scroll y lo restauramos tras pintar tareas. */
 const SCROLL_KEY = "taskflow-scroll-y";
 window.addEventListener("beforeunload", () => {
 	try {
 		sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
 	} catch (_) {
-		/* ignore */
 	}
 });
 
@@ -67,7 +65,6 @@ let boardMode = false;
 const DOM = {
 	list: document.getElementById("tasks"),
 	completed: document.getElementById("completedTasks"),
-	/* HTML antiguo usaba id="status"; si el navegador cachea index distinto a app.js, hace falta el fallback. */
 	status: document.getElementById("statusMessage") || document.getElementById("status"),
 	stats: document.getElementById("stats"), // ← AQUÍ
 	progress: document.getElementById("progress"),
@@ -152,7 +149,7 @@ async function toggleTask(id){
 
 	try {
 		const res = await fetch(
-			`${getTasksApiBase()}/${Number(id)}/toggle`,
+			`${getTasksApiBase()}?id=${Number(id)}`,
 			{ method: "PATCH" }
 		);
 		if (!res.ok) throw new Error("No se pudo actualizar la misión");
@@ -245,7 +242,6 @@ function readFiltersFromStorage() {
 			if (DOM.search) DOM.search.value = j.search;
 		}
 	} catch (_) {
-		/* ignore */
 	}
 }
 
@@ -261,7 +257,6 @@ function persistFiltersToStorage() {
 			})
 		);
 	} catch (_) {
-		/* ignore */
 	}
 }
 
@@ -529,6 +524,5 @@ readFiltersFromStorage();
 			requestAnimationFrame(() => window.scrollTo(0, y));
 		});
 	} catch (_) {
-		/* ignore */
 	}
 })();
