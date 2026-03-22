@@ -306,6 +306,8 @@ function filterStatus(v, el){
 
 function createCard(t){
 
+
+	
 	const el = document.createElement("div");
 	el.className = "task flex border border-yellow-600 rounded-xl overflow-hidden";
 
@@ -329,6 +331,15 @@ function createCard(t){
 	</div>
 	</div>
 	`;
+
+
+el.draggable = true;
+
+el.dataset.id = t.id;
+
+el.addEventListener("dragstart", () => {
+dragged = t.id;
+});
 
 	const handle = el.querySelector(".task-drag-handle");
 	handle.draggable = !t.completed;
@@ -525,4 +536,5 @@ readFiltersFromStorage();
 		});
 	} catch (_) {
 	}
+
 })();
